@@ -15,15 +15,41 @@ kernelspec:
 
 (content:lightbox:download)=
 # Download files
-All the required files are hosted on this GitHub site:
-[https://github.com/Crampton-Lab/MoonShine](https://github.com/Crampton-Lab/MoonShine)
 
-Files of folder or script are zipped for easier download.
-1. To download a file, click the file name.
-2. Click the download button.
-3. Unzip the download file if the file is in `.zip`
+## <span style="font-variant:small-caps;">MoonShineR</span> R package
 
-Source code for the MoonShineR package is available at:
-https://github.com/Crampton-Lab/MoonShineR_package
+The _<span style="font-variant:small-caps;">MoonShineR</span>_ R package, used to predict ground illuminance from moonlight, twilight, and sunlight, is available through [CRAN](https://cran.r-project.org/package=MoonShineR) and should be installed directly from R:
 
-Throughout this guide we have linked a few external tutorial websites. If any of the links are not working, pdf screenshots of the sites are available in the GitHub repository.
+```
+install.packages("MoonShineR")
+```
+For documentation and usage examples, see the [MoonShineR CRAN page](https://cran.r-project.org/package=MoonShineR) or Chapter 1 of this manual.
+
+The source code for the CRAN package is maintained separately in the [MoonShineR_package GitHub repository](https://github.com/Crampton-Lab/MoonShineR_package).
+
+## <span style="font-variant:small-caps;">MoonShineR</span> scheduler scripts and <span style="font-variant:small-caps;">MoonShineP</span>
+
+The two stand-alone <span style="font-variant:small-caps;">MoonShineR</span> scheduler scripts, <span style="font-variant:small-caps;">MoonShineP</span> Python programs, and supporting files required for experimental light re-creation are available from the [main MoonShine GitHub repository](https://github.com/Crampton-Lab/MoonShine).
+
+These include:
+
+**MoonShineR scheduler scripts:**
+
+- `moonshineR_moonlight_scheduler_(ver2025oct).R`
+- `moonshineR_sunlight_twilight_scheduler_(ver2025oct).R`
+
+**MoonShineP Python programs:**
+
+- `control_moon` folder, containing `moonshine_moon.py`
+- `control_sun` folder, containing `moonshine_sun.py`
+- `clear_moon.py`
+- `clear_sun.py`
+
+**Supporting Excel files:**
+
+- `RGBW_LED_spectrum.xlsx`
+- `manual_scheduler.xlsx`
+
+To download an individual file from GitHub, open the file and select the download option. Alternatively, the entire repository can be downloaded using **Code → Download ZIP**.
+
+Detailed instructions for using these files are provided in Chapters 2–8 of this manual.

@@ -559,11 +559,9 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="span-style-font-variant-small-caps-moonshiner-span-moonlight-scheduler">
 <span id="content-moonshiner-moon"></span><h1>2. <span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler<a class="headerlink" href="#span-style-font-variant-small-caps-moonshiner-span-moonlight-scheduler" title="Permalink to this headline">#</a></h1>
-<ul class="simple">
-<li><p><em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em> is a R script designed to be used in conjunction with <em><span style="font-variant:small-caps;">MoonShineP</span></em> to re-create moonlight cycles in the lab.</p></li>
-<li><p><em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em> runs the same set of calculations as <em><span style="font-variant:small-caps;">MoonShineR</span>: R package</em> to predict moonlight illuminance. However, unlike the R package, the output table  <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> contains lists of LED intensity values over time. The interval between successive LED intensity values is constrained to one minute (i.e., the LED intensities are refreshed every minute).</p></li>
-<li><p>Download <em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em> in <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a>.</p></li>
-</ul>
+<p>The <span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler is a stand-alone R script designed for use with <span style="font-variant:small-caps;">MoonShineP</span> to re-create moonlight cycles in laboratory environments.</p>
+<p>The scheduler uses the same underlying illuminance-prediction model as the <span style="font-variant:small-caps;">MoonShineR</span> package available on CRAN, but provides additional functionality for generating LED control schedules. Its output file, <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, contains predicted illuminance values converted into RGBW LED intensity settings at one-minute intervals. <span style="font-variant:small-caps;">MoonShineP</span> reads this file to control the LED array.</p>
+<p><strong>The Moonlight scheduler is not included in the CRAN package.</strong> It must be downloaded separately from the <a class="reference external" href="https://github.com/Crampton-Lab/MoonShine">main MoonShine GitHub repository</a>. (The latest scheduler script version is <code class="docutils literal notranslate"><span class="pre">moonshineR_moonlight_scheduler_(ver2025oct).R</span></code>)</p>
 <section id="key-features">
 <h2>Key features<a class="headerlink" href="#key-features" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -579,7 +577,6 @@ title="Print to PDF"
 <ul>
 <li><p>library(suncalc) Calculates astronomical variables given a time and location, including moon phase, moon altitude, sun altitude, and the moon to Earth distance.</p></li>
 <li><p>library(dplyr) Facilitates data wrangling.</p></li>
-<li><p>library(rpmodel) Calculates atmospheric pressure at a given site elevation.</p></li>
 <li><p>library(lubridate) Makes datetime format easier to work with.</p></li>
 <li><p>library(REdaS) Converts between degree angle and radian.</p></li>
 <li><p>library(npreg) Fits smoothing splines.</p></li>
@@ -595,7 +592,7 @@ title="Print to PDF"
 </section>
 <section id="workflow">
 <h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">#</a></h2>
-<p>Below is a summary of the main steps required to run <em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em>. The code itself is also commented. The “(!)” symbol denotes a line where the user must enter information.</p>
+<p>Below is a summary of the main steps required to run <span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler. The code itself is also commented. The “(!)” symbol denotes a line where the user must enter information.</p>
 <ol>
 <li><p>Set the working directory. This is where the <code class="docutils literal notranslate"><span class="pre">.csv</span></code> (schedule file) and .png (illuminance ~ time) plot are saved.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setwd</span><span class="p">(</span><span class="s2">&quot;/Users/lokpoon/Desktop&quot;</span><span class="p">)</span> <span class="c1"># (!) </span>
@@ -683,7 +680,7 @@ title="Print to PDF"
 </div>
 </li>
 <li><p>Run the code in the section “START OF ILLUMINATION COMPUTATION” through to “END OF ILLUMINATION COMPUTATION”.</p></li>
-<li><p>Generate a moon schedule file <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> by running the codes in the section of “GENERATE LED_schedule_moon.csv” (<a class="reference internal" href="#moon-table"><span class="std std-numref">Fig. 7</span></a>). And plot (See Steps 10-12 in <a class="reference internal" href="lux_calculator.html#content-luxcalculator"><span class="std std-ref">1. MoonShineR: R package</span></a>)</p>
+<li><p>Generate the moonlight schedule file by running the code in the section headed “GENERATE LED_schedule_moon.csv” (<a class="reference internal" href="#moon-table"><span class="std std-numref">Fig. 7</span></a>). This calculates the LED intensity values required to re-create the predicted moonlight illuminance.</p>
 <figure class="align-default" id="moon-table">
 <img alt="_images/moon_table.jpg" src="_images/moon_table.jpg" />
 <figcaption>
@@ -691,20 +688,15 @@ title="Print to PDF"
 </figcaption>
 </figure>
 </li>
-<li><p>Save a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, containing the LED intensity values over time.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">write</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="n">moon_value_table</span><span class="p">,</span><span class="s2">&quot;lux_calculator_output.csv&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+<li><p>Save the schedule file <code class="docutils literal notranslate"><span class="pre">LED\_schedule\_moon.csv</span></code> containing the LED intensity values over time, by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">write</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="n">moon_value_table</span><span class="p">,</span><span class="s2">&quot;LED_schedule_moon.csv&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>Display a plot of the illuminance prediction over time, as specified in step 8, by running the code that starts with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_output</span> <span class="o">&lt;-</span> <span class="n">ggplot</span><span class="p">()</span> <span class="o">+</span> <span class="n">theme_rectangular_clean</span> <span class="o">+</span> <span class="o">......</span>
-</pre></div>
-</div>
-<p>And ends with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_output</span>
-</pre></div>
-</div>
-</li>
+</ol>
+<p>This file is used by MoonShineP to control the moonlight LED array.</p>
+<ol>
+<li><p>Display a plot of the illuminance prediction over time by running the code in the script’s Plotting Section, ending with <code class="docutils literal notranslate"><span class="pre">plot_output</span></code>.</p></li>
 <li><p>Save this plot to working directory, by running the following line of code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ggsave</span><span class="p">(</span><span class="s2">&quot;plot_output.png&quot;</span><span class="p">,</span> <span class="n">plot_output</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">4488</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;px&quot;</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">450</span><span class="p">)</span>
 </pre></div>
@@ -724,11 +716,11 @@ title="Print to PDF"
 </ol>
 <ul>
 <li><p>If there is no eclipse, a “no eclipse in simulation” message will appear in the R console after the simulation is complete.</p></li>
-<li><p>If there is an eclipse, “ECLIPSE IN SIMULATION!!!” will appear in the console. <em><span style="font-variant:small-caps;">MoonShineR</span></em> will also report a list of all time intervals affected by both the penumbral and umbral stages of the eclipse. Note that <em><span style="font-variant:small-caps;">MoonShineR</span></em> does not simulate the transient reduction in illuminated fraction or moonlight illuminance during a lunar eclipse (these variables will therefore be incorrectly reported reported by <em><span style="font-variant:small-caps;">MoonShineR</span></em> during the event).</p>
+<li><p>If there is an eclipse, “ECLIPSE IN SIMULATION!!!” will appear in the console. <span style="font-variant:small-caps;">MoonShineR</span> will also report a list of all time intervals affected by both the penumbral and umbral stages of the eclipse. Note that <span style="font-variant:small-caps;">MoonShineR</span> does not simulate the transient reduction in illuminated fraction or moonlight illuminance during a lunar eclipse (these variables will therefore be incorrectly reported reported by <span style="font-variant:small-caps;">MoonShineR</span> during the event).</p>
 <figure class="align-default" id="eclipse">
 <img alt="_images/eclipse.jpg" src="_images/eclipse.jpg" />
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Running a <em><span style="font-variant:small-caps;">MoonShineR</span></em> simulation during an eclipse will return a warning message and a list of the minutes of the eclipse event.</span><a class="headerlink" href="#eclipse" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Running a <span style="font-variant:small-caps;">MoonShineR</span> simulation during an eclipse will return a warning message and a list of the minutes of the eclipse event.</span><a class="headerlink" href="#eclipse" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
@@ -736,11 +728,11 @@ title="Print to PDF"
 <section id="rgbw-spectral-control">
 <span id="content-rgbw"></span><h3>RGBW spectral control<a class="headerlink" href="#rgbw-spectral-control" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p><em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em> does not re-create spectral changes associated with variation in the moon altitude; these are negligible. In other words, moonlight is re-created with a constant spectrum, regardless of moon altitude.</p></li>
-<li><p>Certain habitats are characterized by unique wavelength-dependent attenuation, which researchers may consider emulating. <em><span style="font-variant:small-caps;">MoonShineR</span> Moonlight scheduler</em> provides the option to adjust the relative intensity of the RGBW channels (<a class="reference internal" href="#habitat"><span class="std std-numref">Fig. 10</span></a>).</p></li>
+<li><p><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler does not re-create spectral changes associated with variation in the moon altitude; these are negligible. In other words, moonlight is re-created with a constant spectrum, regardless of moon altitude.</p></li>
+<li><p>Certain habitats are characterized by unique wavelength-dependent attenuation, which researchers may consider emulating. <span style="font-variant:small-caps;">MoonShineR</span> Moonlight scheduler provides the option to adjust the relative intensity of the RGBW channels (<a class="reference internal" href="#habitat"><span class="std std-numref">Fig. 10</span></a>).</p></li>
 <li><p>Adjusting the RGBW spectrum requires the user to have a profound understanding of the spectral characteristics of their habitat target, and the visual sensitivity of the subject animal(s). This is, in part, because the RGBW channels have a very specific and limited peak and spectral range when compared to the complex spectral properties of natural habitats. Consequently, some habitat light spectrum approximations would be more realistic (e.g., when the habitat”s spectral peak corresponds to one of the RGBW peaks), while other approximations might be unsatisfactory.</p></li>
 <li><p>Knowing the animal’s spectral sensitivity can help to assess the validity of a re-created LED spectrum. For example mammals do not see UV light, so the lack of UV in warm white SK6812 LED strips does not constitute a limitation. However, this might not be the case for animals with UV sensitive vision (including many invertebrates and some vertebrates).</p></li>
-<li><p>If the user has a spectrometer, they should specify the RGBW intensity fraction in <em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler</em> and measure the resulting overall LED spectral irradiance.</p></li>
+<li><p>If the user has a spectrometer, they should specify the RGBW intensity fraction in <span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler and measure the resulting overall LED spectral irradiance.</p></li>
 <li><p>If the user does not have a spectrometer, they should use the provided Microsoft Excel spreadsheet <code class="docutils literal notranslate"><span class="pre">RGBW_LED_spectrum.xlsx</span></code> (download in <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a>) to predict the resulting overall LED spectral irradiance (<a class="reference internal" href="#excel-predict"><span class="std std-numref">Fig. 9</span></a>).</p></li>
 </ul>
 <figure class="align-default" id="excel-predict">
@@ -752,7 +744,7 @@ title="Print to PDF"
 <figure class="align-default" id="habitat">
 <img alt="_images/habitat.jpg" src="_images/habitat.jpg" />
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">A comparison of the spectra of the unadjusted RGBW channels of the SK68212 LED array to the peak spectral wavelengths of four strongly color-shifted habitats. This plot compares the spectra of the LED RGBW channels to a few habitats with strong spectral shifts. Here, the RGBW channels are all set to the maximum intensity in MoonShineR (i.e., R = 1.0, G = 1.0, B = 1.0, W = 1.0). Note that at the same intensity level, the RGBW channels each have a peak at a different absolute irradiance level (e.g., blue is stronger than green). The dotted line indicates the spectral peaks of four distinctive habitats (clear ocean [Jerlov, 1976], forest understory [Veilleux &amp; Cummings et al, 2012],high-transparency clearwater Amazon rivers, tannin-stained blackwater Amazon rivers, and turbid, tannin-stained whitewater Amazon river [Costa et al., 2013]). The spectral peak of the clear ocean and blue channel are close, while the far red peak of the tannin-stained river cannot be re-created accurately by the red or white channels. These peaks are, of course, an oversimplified representation of the habitats’ spectra; the user should always refer to the complete spectral irradiance plot for a given habitat. Ideally, the user should make their own spectral irradiance measurements at their study site since the spectral properties of the same habitat type (e.g. clearwater river) can still vary greatly (Johnsen, 2012).</span><a class="headerlink" href="#habitat" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">A comparison of the spectra of the unadjusted RGBW channels of the SK6812 LED array to the peak spectral wavelengths of four strongly color-shifted habitats. This plot compares the spectra of the LED RGBW channels to a few habitats with strong spectral shifts. Here, the RGBW channels are all set to the maximum intensity in MoonShineR (i.e., R = 1.0, G = 1.0, B = 1.0, W = 1.0). Note that at the same intensity level, the RGBW channels each have a peak at a different absolute irradiance level (e.g., blue is stronger than green). The dotted line indicates the spectral peaks of four distinctive habitats (clear ocean [Jerlov, 1976], forest understory [Veilleux &amp; Cummings et al, 2012],high-transparency clearwater Amazon rivers, tannin-stained blackwater Amazon rivers, and turbid, tannin-stained whitewater Amazon river [Costa et al., 2013]). The spectral peak of the clear ocean and blue channel are close, while the far red peak of the tannin-stained river cannot be re-created accurately by the red or white channels. These peaks are, of course, an oversimplified representation of the habitats’ spectra; the user should always refer to the complete spectral irradiance plot for a given habitat. Ideally, the user should make their own spectral irradiance measurements at their study site since the spectral properties of the same habitat type (e.g. clearwater river) can still vary greatly (Johnsen, 2012).</span><a class="headerlink" href="#habitat" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -776,7 +768,7 @@ title="Print to PDF"
 <span class="c1"># We DEFINE THIS AS Zone C.</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">horiz_transmission</span> <span class="o">&lt;-</span> <span class="mf">0.15</span> <span class="c1"># (!) the proportional transmission of light in Zone A relative to Zone C.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">horiz_transmission</span> <span class="o">&lt;-</span> <span class="mf">0.15</span> <span class="c1"># (!) the proportional transmission of light in Zone C relative to Zone A.</span>
 </pre></div>
 </div>
 <figure class="align-default" id="horizon">
@@ -790,7 +782,7 @@ title="Print to PDF"
 </section>
 <section id="cloud-cover-simulation">
 <span id="content-cloud"></span><h3>Cloud cover simulation<a class="headerlink" href="#cloud-cover-simulation" title="Permalink to this headline">#</a></h3>
-<p>The cloud simulation works by creating a random list of numbers (representing transmission), which are taken from a normal distribution with a user-defined mean and standard deviation. A spline function is then fitted through these numbers to yield a varying but smoothed modulation of illuminance over time. There are six variables that need to be configured for cloud cover simulation, which are listed below. The values of the six variables have some mutual effects on each other. The only way to visualize how the simulated cloud will modulate a moonlight regime is to visualize the spline function in a plot generated by <em><span style="font-variant:small-caps;">MoonShineR</span></em>’s plotting functions.</p>
+<p>The cloud simulation works by creating a random list of numbers (representing transmission), which are taken from a normal distribution with a user-defined mean and standard deviation. A spline function is then fitted through these numbers to yield a varying but smoothed modulation of illuminance over time. There are six variables that need to be configured for cloud cover simulation, which are listed below. The values of the six variables have some mutual effects on each other. The only way to visualize how the simulated cloud will modulate a moonlight regime is to visualize the spline function in a plot generated by <span style="font-variant:small-caps;">MoonShineR</span>’s plotting functions.</p>
 <section id="cloud-period">
 <h4>Cloud period<a class="headerlink" href="#cloud-period" title="Permalink to this headline">#</a></h4>
 <ul>
@@ -802,7 +794,7 @@ title="Print to PDF"
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the user wants to apply cloud cover to the entire simulation period, the user should use the same date and time values used to start the entire simulation (see Step 5 in <a class="reference internal" href="lux_calculator.html#content-luxcalculator"><span class="std std-ref">1. MoonShineR: R package</span></a> and enter the entire simulation duration as the duration_day_cloud value.</p>
+<p>To apply cloud cover to the entire simulation period, use the same starting date and time specified in Step 5 of the Moonlight scheduler workflow, and set duration_day_cloud equal to the full simulation duration.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -847,7 +839,7 @@ title="Print to PDF"
 <figure class="align-default" id="freq30output">
 <a class="reference internal image-reference" href="_images/freq30output.jpg"><img alt="_images/freq30output.jpg" src="_images/freq30output.jpg" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">The final moonlight illuminance with the smoothing spline of <a class="reference internal" href="#freq30smooth"><span class="std std-numref">Fig. 14</span></a> applied. A value of 60 represents very slow cloud movement.</span><a class="headerlink" href="#freq30output" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">The final moonlight illuminance with the smoothing spline of <a class="reference internal" href="#freq30smooth"><span class="std std-numref">Fig. 14</span></a> applied. A value of 30 represents very slow cloud movement.</span><a class="headerlink" href="#freq30output" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -917,7 +909,7 @@ title="Print to PDF"
 <figure class="align-default" id="sd01smooth">
 <a class="reference internal image-reference" href="_images/sd01smooth.jpg"><img alt="_images/sd01smooth.jpg" src="_images/sd01smooth.jpg" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text">The smoothing spline with transmission_sd = 1 (and lower transmission_mean = 0.5 )</span><a class="headerlink" href="#sd01smooth" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">The smoothing spline with transmission_sd = 0.1 (and lower transmission_mean = 0.5 )</span><a class="headerlink" href="#sd01smooth" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="sd01output">

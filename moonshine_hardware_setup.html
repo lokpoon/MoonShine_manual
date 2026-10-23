@@ -519,7 +519,7 @@ title="Print to PDF"
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Raspberry Pi 4 model B kit</p></td>
+<tr class="row-even"><td><p>Raspberry Pi 4 model B kit (other iteration of Pi should also work)</p></td>
 <td><p>B0B7DFF7TY</p></td>
 <td><p>GeeekPi</p></td>
 <td><p>1</p></td>
@@ -607,7 +607,7 @@ title="Print to PDF"
 <td><p><a class="reference external" href="https://www.filmandvideolighting.com/lee-neutral-denisty-nd-gel-filter-sheet-film-video-photo-lighting.html">BarnDoor</a></p></td>
 <td><p><a class="footnote-reference brackets" href="#id13" id="id6">6</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Lux meter/radiometer/spectrometer</p></td>
+<tr class="row-odd"><td><p>Light meter/spectrometer</p></td>
 <td><p>-</p></td>
 <td><p>-</p></td>
 <td><p>1</p></td>
@@ -726,11 +726,11 @@ title="Print to PDF"
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Any equivalent kit of the Raspberry Pi 4 model B from other companies would work. Beside the Raspberry Pi itself, the kit should include all the accessories such as HDMI cable, power supply, case, SD card, etc. <em><span style="font-variant:small-caps;">MoonShineP</span></em> only requires the 2GB RAM option, but there are options for more RAM (4GB or 8GB).</p>
+<dd><p>Any equivalent kit of the Raspberry Pi 4 model B from other companies would work. Beside the Raspberry Pi itself, the kit should include all the accessories such as HDMI cable, power supply, case, SD card, etc. <span style="font-variant:small-caps;">MoonShineP</span> only requires the 2GB RAM option, but there are options for more RAM (4GB or 8GB).</p>
 <p>Prices are for February 2023. At the time of writing this document, the price of a Raspberry Pi is much higher than the official price due to supply issues.</p>
 </dd>
 <dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>We strongly recommend the following options: 1m, 144 LED, Warm White. There are IP65 water resistant and IP30 normal versions available for this model. The user can choose one suitable for the required application. We picked warm white to avoid a substantial blue spike in the white channel spectrum. A different strip length and LED number can be selected, but the 1m 144 LED is the best suited for most situations, and the default options in the <em><span style="font-variant:small-caps;">MoonShineR</span></em> suite will work for this model.</p>
+<dd><p>We strongly recommend the following options: 1m, 144 LED, Warm White. There are IP65 water resistant and IP30 normal versions available for this model. The user can choose one suitable for the required application. We picked warm white to avoid a substantial blue spike in the white channel spectrum. A different strip length and LED number can be selected, but the 1m 144 LED is the best suited for most situations, and the default options in the <span style="font-variant:small-caps;">MoonShineR</span> suite will work for this model.</p>
 <p>Two LED strips are required for moonlight recreation. More can be added, in multiples of two, to daisy chain many more strips, e.g., to generate a higher illuminance when recreating sunlight.</p>
 <p>The PWM flicker rate of an SK6812 LED strip is ~1.1 kHz. This flicker frequency is much higher than the critical flicker fusion rates of animals (~400 Hz) (Inger et al., 2014), and is therefore unlikely to be detectable to animal subjects.</p>
 </dd>
@@ -761,9 +761,9 @@ title="Print to PDF"
 <p>Rosco is another company that makes ND filter sheets.</p>
 </dd>
 <dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
-<dd><p>“Lux meter” is a commercial term for a radiometer; these devices measure illuminance in lux. A measure of illuminance is essential to calibrate <span style="font-variant:small-caps;">MoonShineP</span>. A spectrometer is a radiometer that measures spectral irradiance – measures of light intensity values across (and just outside) the visible light spectrum. Spectral irradiance measurements can easily be converted into illuminance. Spectrometers are generally more expensive than radiometers, although precision low-light sensitive radiometers suitable for quantifying moonlight levels are also expensive.</p>
-<p>An accurate illuminance measuring device is critical for calibrating MoonShineP, but ones that measures at low light are very expensive. We do not want the cost of the radiometer to discourage the use of <span style="font-variant:small-caps;">MoonShineP</span> for moonlight related experiments. Still, it is critical to obtain a meter that has NIST-Traceable calibration, like the International Light Technology <a class="reference external" href="https://www.intl-lighttech.com/products/ilt10c-luxlight-meter-nist-traceable-calibration?gclid=Cj0KCQiAw8OeBhCeARIsAGxWtUzB0YaQDpYF5fXMYee-U9zSQgnbmph4LrlmD0inkbSdw4FtaJ-AjjsaApwYEALw_wcB">ILT10C</a> (lower limit of 10 lx, cost ~$350). Lower cost meters do not perform accurately at moonlight level illuminance (i.e., &lt;0.3 lx). Where only a non low-light sensitive radiometer is available (able to read below 1E-2 lx with a resolution +/- 1E-2 lx or better), like the ILT10C,  <span style="font-variant:small-caps;">MoonShineP</span> can be calibrated using a comparative method. See further explanations and solutions in <a class="reference internal" href="moonshine_calibration.html#content-lightbox-radiometer"><span class="std std-ref">Calibrating MoonShineP with a radiometer</span></a>.</p>
-<p>We used the International Light Technology <a class="reference external" href="https://www.intl-lighttech.com/products/ilt5000-researchlab-radiometer">ILT-5000</a> radiometer, with a SED 100-10/U broadband silicon photosensor, WU wide angle quartz diffuser, and Y4 photopic filter. This device is sensitive to light as low as 0.0002 lx.</p>
+<dd><p>A light meter that measures light intensity in the intergrated measure of illuminance (in unit lux). They are sometime confusingly refered to as radiometer. Measuring the light intensity is essential for calibrating <span style="font-variant:small-caps;">MoonShineP</span>. A spectrometer also measures light but without integration (i.e., losing) of wavelength data, measuring spectral irradiance. Spectrometers are generally more expensive than meter that measures lux, especially ones sensitive to low light levels.</p>
+<p>An accurate light measuring device is critical for calibrating MoonShineP, but it can be expensive. We do not want the cost of a low-light-sensitive meter to discourage the use of <span style="font-variant:small-caps;">MoonShineP</span> for moonlight related experiments. Still, it is critical to obtain a meter that has NIST-Traceable calibration, like the International Light Technology <a class="reference external" href="https://www.intl-lighttech.com/products/ilt10c-luxlight-meter-nist-traceable-calibration?gclid=Cj0KCQiAw8OeBhCeARIsAGxWtUzB0YaQDpYF5fXMYee-U9zSQgnbmph4LrlmD0inkbSdw4FtaJ-AjjsaApwYEALw_wcB">ILT10C</a> (lower limit of 10 lx, cost ~$350). Lower cost meters do not perform accurately at moonlight level illuminance (i.e., &lt;0.3 lx). Where only a non low-light sensitive meter is available (able to read below 1E-2 lx with a resolution +/- 1E-2 lx or better), like the ILT10C,  <span style="font-variant:small-caps;">MoonShineP</span> can be calibrated using a comparative method. See further explanations and solutions in <a class="reference internal" href="moonshine_calibration.html#content-lightbox-radiometer"><span class="std std-ref">Calibrating MoonShineP with a light meter</span></a>.</p>
+<p>We used the International Light Technology <a class="reference external" href="https://www.intl-lighttech.com/products/ilt5000-researchlab-radiometer">ILT-5000</a> lux meter, with a SED 100-10/U broadband silicon photosensor, WU wide angle quartz diffuser, and Y4 photopic filter. This device is sensitive to light as low as 0.0002 lx.</p>
 </dd>
 </dl>
 </section>

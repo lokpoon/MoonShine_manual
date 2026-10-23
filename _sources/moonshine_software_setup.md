@@ -36,7 +36,7 @@ kernelspec:
     MoonShineP DOES NOT SUPPORT OTHER VERSIONS OF PYTHON
     ```
    
-   Reference: [How to Update Python on Raspberry Pi](https://linuxhint.com/update-python-raspberry-pi/)
+   Reference: [How to Update Python on Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/update_python_webpage.pdf)
    
    Enter the following sequence of commands in the terminal:
    
@@ -86,17 +86,17 @@ kernelspec:
 9. Reboot the Raspberry Pi.
 10. Modify the Raspberry Pi to run the ws2811 library. 
    
-   Reference: [Connect and Control WS2812 RGB LED Strips via Raspberry Pi](https://tutorials-raspberrypi.com/connect-control-raspberry-pi-ws2812-rgb-led-strips/)
+   Reference: [Connect and Control WS2812 RGB LED Strips via Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/LED_strip_setup.pdf)
    
    - In terminal, enter the following sequence of commands:
    
-   ```
-   sudo apt-get update
-   ```
+        ```
+        sudo apt-get update
+        ```
    
-   ```
-   sudo apt-get install gcc make build-essential python-dev git scons swig
-   ```
+        ```
+        sudo apt-get install gcc make build-essential python-dev git scons swig
+        ```
    - Confirm with Y
    
    - This following command line will open a file editor. To deactivate audio output, edit the `.conf` file by entering the following command:
@@ -158,7 +158,7 @@ kernelspec:
     
     - The line of "STRIP_TYPE  WS2811_STRIP_RGB" is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.
     
-    - Instead, turn on the line of "STRIP_TYPE  WS6812_STRIP_RGBW" (should be line 64) for SK6812 by deleting the // at the beginning of the line.
+    - Instead, turn on the line of "STRIP_TYPE  SK6812_STRIP_RGBW" (should be line 64) for SK6812 by deleting the // at the beginning of the line.
     
 
     - On the line beginning with _'define HEIGHT'_ (should be line 67) edit the number to 1.
@@ -201,7 +201,7 @@ A real time clock module is optional but recommended. We recommend that the user
 
 2. On the task bar of the main Linux window of Raspberry Pi, go to the Start menu (top left button) and enable the RTC module by selecting the following options: > Preferences > Raspberry Pi Configuration > Interfaces > I2C **Enable** > OK
 
-3. Install RTC configurations (see video reference: [Real Time Clock Script for Raspberry Pi](https://www.youtube.com/watch?v=MxUbqotDBnM), and this online tutorial: [Adding a Real Rime Clock to your Raspberry Pi](https://thepihut.com/blogs/raspberry-pi-tutorials/17209332-adding-a-real-time-clock-to-your-raspberry-pi))
+3. Install RTC configurations (see video reference: [Real Time Clock Script for Raspberry Pi](https://www.youtube.com/watch?v=MxUbqotDBnM), and this online tutorial: [Adding a Real Rime Clock to your Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/RTC_install_webpage.pdf))
     - In terminal enter:
     ```
     wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/rtc && bash rtc
@@ -253,7 +253,7 @@ A real time clock module is optional but recommended. We recommend that the user
 1. In additional, download `clear_moon.py` and `clear_sun.py` put them directly on the Raspberry Pi Desktop.
 (content:systemd)=   
 ## Setting up systemd service
-Running _<span style="font-variant:small-caps;">MoonShineP</span>_ using the Linux systemd service manager allows it to recover and resume light re-creation automatically, in the unlikely event of a crash.
+Running <span style="font-variant:small-caps;">MoonShineP</span> using the Linux systemd service manager allows it to recover and resume light re-creation automatically, in the unlikely event of a crash.
 
 1. Create a new service file.
    
@@ -273,8 +273,8 @@ Running _<span style="font-variant:small-caps;">MoonShineP</span>_ using the Lin
    [Service]
    User=root
    Group=root
-   Type=shineple
-   ExecStart=sudo /usr/bin/python3 /home/pi/Desktop/control_moon/moonshine_moon.py
+   Type=simple
+   ExecStart=/usr/bin/python3 /home/pi/Desktop/control_moon/moonshine_moon.py
    Restart=always
    RestartSec=3
    
@@ -310,13 +310,13 @@ Running _<span style="font-variant:small-caps;">MoonShineP</span>_ using the Lin
 
     - For step 3, save the file with name `moonshine_sun.service`
     
-   ```{note}
-   Every time a `.service` file is edited, it requires a refresh (see Step 4).
-   ```
+       ```{note}
+       Every time a `.service` file is edited, it requires a refresh (see Step 4).
+       ```
 (content:lightbox:lednumber3)=    
 ## Setting LED numbers in `moonshine_moon.py` and `moonshine_sun.py`
 
-- Recall that in {ref}`content:MoonShineR_moon` and {ref}`content:MoonShineR_sun`, the user was required to enter the specifications of the LED array (diode_per_strip and strip_count) into the R program. This was essential for generating the schedule `.csv`. It is important that LED_COUNT (below) in _<span style="font-variant:small-caps;">MoonShineP</span>_ python script represents the product of diode_per_strip (from _<span style="font-variant:small-caps;">MoonShineR</span>_) and strip_count (from _<span style="font-variant:small-caps;">MoonShineR</span>_).
+- Recall that in {ref}`content:MoonShineR_moon` and {ref}`content:MoonShineR_sun`, the user was required to enter the specifications of the LED array (diode_per_strip and strip_count) into the R program. This was essential for generating the schedule `.csv`. It is important that LED_COUNT (below) in <span style="font-variant:small-caps;">MoonShineP</span> python script represents the product of diode_per_strip (from <span style="font-variant:small-caps;">MoonShineR</span>) and strip_count (from <span style="font-variant:small-caps;">MoonShineR</span>).
 
 1. To calculate the total number of LEDs, diode_per_strip should be multiplied by strip_count. E.g., 144 x 4 = 576.
 2. Edit the line of "LED_COUNT" in `moonshine_moon.py` and `moonshine_sun.py` with the respective total number of LEDs for each array (see {numref}`led_count`).

@@ -436,12 +436,12 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-radiometer">
+    <a class="reference internal nav-link" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter">
      Calibrating
      <span style="font-variant:small-caps;">
       MoonShineP
      </span>
-     with a radiometer
+     with a light meter
     </a>
    </li>
   </ul>
@@ -493,12 +493,12 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-radiometer">
+    <a class="reference internal nav-link" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter">
      Calibrating
      <span style="font-variant:small-caps;">
       MoonShineP
      </span>
-     with a radiometer
+     with a light meter
     </a>
    </li>
   </ul>
@@ -532,20 +532,20 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>To achieve realistic moonlight level illuminance, the LED arrays must be physically dimmed. We layer neutral density (ND) filter paper on the lightbox to reduce the light intensity, without modifying the color spectrum (<a class="reference internal" href="moonshine_hardware_setup.html#box"><span class="std std-numref">Fig. 33</span></a>)), until a ‘calibration value’ is achieved.</p></li>
 <li><p>The user must first decide whether to re-create unobstructed ground illumination (i.e., a simulation in which there is no additional dimming), or to recreate light with a desired attenuation level so as to mimic the illumination levels of a natural habitat.</p></li>
-<li><p>For the re-creation of full moon illuminance with no additional dimming, we recommend a ‘calibration value’ exceeding 0.36 lx but less than approximately 0.5. In brief, this value is achieved as follows: 1)  Configure the LED array to its maximum brightness (i.e., all LEDs illuminated at their maximum value for the particular RGBW ratio used).  2) Using a low-light radiometer to monitor the light level at a fixed position near the experimental arena. 3) Add layers of neutral density filter papers onto the light box until the light is dimmed to &gt; 0.36 lx but &lt; approximately 0.5 lx when measured by the radiometer at its fixed position.</p></li>
-<li><p>The justification for the &gt; 0.36 &lt; ~ 0.5 range of calibration values is that the maximum possible ground illuminance of a full moon is 0.36 lx (see Section 4.2 of the paper); most full moons are much dimmer than this. Henceforth we use the example of a calibration value of 0.4 lx. It is important to understand that a calibration value of 0.4 lx does not mean that the full moon re-created by MoonShine will be 0.4 lx. Instead, this calibration value simply ensures that any illuminance below 0.4 lx will be re-created accurately. By calibrating the lightbox to a value exceeding 0.36 lx but less than ~ 0.5 lx (the closer to 0.36 lx, the better), we ensure that <em><span style="font-variant:small-caps;">MoonShineP</span></em> can precisely re-create, with optimal accuracy, the entire range of natural moonlight illuminance predicted by <em><span style="font-variant:small-caps;">MoonShineR</span></em>.</p></li>
+<li><p>For the re-creation of full moon illuminance with no additional dimming, we recommend a ‘calibration value’ exceeding 0.36 lx but less than approximately 0.5. In brief, this value is achieved as follows: 1)  Configure the LED array to its maximum brightness (i.e., all LEDs illuminated at their maximum value for the particular RGBW ratio used).  2) Using a low-light meter to monitor the light level at a fixed position near the experimental arena. 3) Add layers of neutral density filter papers onto the light box until the light is dimmed to &gt; 0.36 lx but &lt; approximately 0.5 lx when measured by the light meter at its fixed position.</p></li>
+<li><p>The justification for the &gt; 0.36 &lt; ~ 0.5 range of calibration values is that the maximum possible ground illuminance of a full moon is 0.36 lx (see Section 4.2 of the paper); most full moons are much dimmer than this. Henceforth we use the example of a calibration value of 0.4 lx. It is important to understand that a calibration value of 0.4 lx does not mean that the full moon re-created by MoonShine will be 0.4 lx. Instead, this calibration value simply ensures that any illuminance below 0.4 lx will be re-created accurately. By calibrating the lightbox to a value exceeding 0.36 lx but less than ~ 0.5 lx (the closer to 0.36 lx, the better), we ensure that <span style="font-variant:small-caps;">MoonShineP</span> can precisely re-create, with optimal accuracy, the entire range of natural moonlight illuminance predicted by <span style="font-variant:small-caps;">MoonShineR</span>.</p></li>
 </ul>
 </section>
 <section id="create-a-calibration-schedule">
 <span id="content-calibration-schedule"></span><h2>Create a calibration schedule<a class="headerlink" href="#create-a-calibration-schedule" title="Permalink to this headline">#</a></h2>
 <p>Use the provided <code class="docutils literal notranslate"><span class="pre">manual_scheduler.xlsx</span></code> (see <a class="reference internal" href="edit_LED_schedule_csv.html#content-excel-scheduler"><span class="std std-ref">Option 2: Create LED schedule manually using manual_scheduler.xlsx</span></a>) to create a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> that turns on the LEDs at full intensity (with spectral control applied).</p>
 <ol class="simple">
-<li><p>. In <code class="docutils literal notranslate"><span class="pre">manual_scheduler.xlsx</span></code>, set theoretical_max to the calibration value (here we continue with the example of 0.4 lx).</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">manual_scheduler.xlsx</span></code>, set theoretical_max to the calibration value (here we continue with the example of 0.4 lx).</p></li>
 <li><p>Fill the entire column of “desired illuminance” with 0.4. This tells the LEDs to produce 100% intensity (i.e., 0.4/0.4 = 100%).</p></li>
 <li><p>Set the spectral control as desired (leave it as default for natural moonlight spectrum).</p></li>
 <li><p>Make the schedule to last for 2 hours (or a period sufficient to perform the calibration period) for a time period in the near future, at the time the calibration will be performed.</p></li>
 <li><p>Follow the rest of the instructions in <a class="reference internal" href="edit_LED_schedule_csv.html#content-excel-scheduler"><span class="std std-ref">Option 2: Create LED schedule manually using manual_scheduler.xlsx</span></a> to save the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code></p></li>
-<li><p>This schedule file will instruct <em><span style="font-variant:small-caps;">MoonShineP</span></em> to generate full intensity light for the purpose of calibration.</p></li>
+<li><p>This schedule file will instruct <span style="font-variant:small-caps;">MoonShineP</span> to generate full intensity light for the purpose of calibration.</p></li>
 </ol>
 <section id="which-nd-filter-sheets">
 <h3>Which ND filter sheets?<a class="headerlink" href="#which-nd-filter-sheets" title="Permalink to this headline">#</a></h3>
@@ -560,34 +560,34 @@ title="Print to PDF"
 <p>To make an informed decision on what combination of ND filter sheets is needed for the user’s specific room and setup, perform the following steps:</p>
 <ol class="simple">
 <li><p>Position the lightboxes at their permanent locations. Ideally the lightboxes should be put on shelves at opposite sides of the room, so that the light is directed to the ceiling and diffusely illuminates the entire room. The room should preferably have a white or light-shaded ceiling so as to minimize the change in the light spectrum.</p></li>
-<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <em><span style="font-variant:small-caps;">MoonShineP</span></em> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
-<li><p>Using a radiometer, measure the illuminance at the position of the animal enclosure. Let us say that it measures 100 lx.</p></li>
+<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
+<li><p>Using a light meter, measure the illuminance at the position of the animal enclosure. Let us say that it measures 100 lx.</p></li>
 </ol>
 <ul class="simple">
 <li><p>To target a full moon illuminance &gt; 0.36 &lt; ~0.5 lx, begin by estimating the light value that will be produced by the lightbox using a combination of Lee filters stacked onto the opening of the lightbox.</p></li>
 <li><p>For instance, if two single Lee ND 299 sheet (each with 6.6% transmission) were used to filter the LEDS, the illumination would be reduced from 100 lx to approximately 0.44 lx (100 x 0.066 x 0.066). Since this value is close to the target range, this would be a good starting point.</p></li>
-<li><p>The above calculation is only to get a crude idea of which ND filter to buy. We recommend buying some additional sheets with high transmission percentages (i.e. sheets that block only small amounts of light) for fine-tuning purposes. Next we must calibrate <em><span style="font-variant:small-caps;">MoonShineP</span></em> by measuring the illuminance.</p></li>
+<li><p>The above calculation is only to get a crude idea of which ND filter to buy. We recommend buying some additional sheets with high transmission percentages (i.e. sheets that block only small amounts of light) for fine-tuning purposes. Next we must calibrate <span style="font-variant:small-caps;">MoonShineP</span> by measuring the illuminance.</p></li>
 </ul>
 </section>
-<section id="calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-radiometer">
-<span id="content-lightbox-radiometer"></span><h3>Calibrating <span style="font-variant:small-caps;">MoonShineP</span> with a radiometer<a class="headerlink" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-radiometer" title="Permalink to this headline">#</a></h3>
+<section id="calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter">
+<span id="content-lightbox-radiometer"></span><h3>Calibrating <span style="font-variant:small-caps;">MoonShineP</span> with a light meter<a class="headerlink" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <em><span style="font-variant:small-caps;">MoonShineP</span></em> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
-<li><p>Next, the calibration method depends on whether a low light sensitive radiometer (able to accurately measure 0.01 lx) is available.</p>
+<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
+<li><p>Next, the calibration method depends on whether a low light sensitive meter (able to accurately measure 0.01 lx) is available.</p>
 <ul>
 <li><p>If available,</p>
 <ol class="simple">
-<li><p>Layer filters on the lightbox until the radiometer sensor placed on the ground of the animal housing reads a target illuminance between 0.36 lx and ~0.5 lx. Because every additional ND filter layers attenuate illuminance in a certain fraction, it can be difficult to attenuate the illuminance to within this narrow range. We recommend purchasing multiple filter papers with small light-attenuation percentages to make this process easier.</p></li>
+<li><p>Layer filters on the lightbox until the light meter sensor placed on the ground of the animal housing reads a target illuminance between 0.36 lx and ~0.5 lx. Because every additional ND filter layers attenuate illuminance in a certain fraction, it can be difficult to attenuate the illuminance to within this narrow range. We recommend purchasing multiple filter papers with small light-attenuation percentages to make this process easier.</p></li>
 <li><p>Once a value between 0.36 and ~0.5 lx is achieved, record this illuminance measurement. This is the calibration value.</p></li>
-<li><p>Put in this calibration value as the theoretical_max value in <em><span style="font-variant:small-caps;">MoonShineR</span>: Moonlight led scheduler</em> when generating a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>. The <em><span style="font-variant:small-caps;">MoonShineP</span></em> system is now calibrated.</p></li>
+<li><p>Put in this calibration value as the theoretical_max value in <span style="font-variant:small-caps;">MoonShineR</span>: Moonlight led scheduler_ when generating a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>. The <span style="font-variant:small-caps;">MoonShineP</span> system is now calibrated.</p></li>
 </ol>
 </li>
-<li><p>If only a non-low light sensitive radiometer is available (i.e., one incapable of reading lower than 0.1 lx, but has a resolution of +/- 1 lx or better):</p>
+<li><p>If only a non-low light sensitive meter is available (i.e., one incapable of reading lower than 0.1 lx, but has a resolution of +/- 1 lx or better):</p>
 <ol class="simple">
-<li><p>Instead measure the room illuminance with no filter applied. Then repeat the measurement but now with the radiometer pointing directly at the LED light at a close distance.</p></li>
+<li><p>Instead measure the room illuminance with no filter applied. Then repeat the measurement but now with the light meter pointing directly at the LED light at a close distance.</p></li>
 <li><p>The ratio between the room illuminance and direct illuminance should remain relatively constant as more filters are applied.</p></li>
 <li><p>In this manner estimate how many layers of filter are required to reduce the illuminance to reach the target.</p></li>
-<li><p>Then follow the above concepts described for calibrating the system described for the low light sensitive radiometer.</p></li>
+<li><p>Then follow the above concepts described for calibrating the system described for the low light sensitive meter.</p></li>
 </ol>
 </li>
 </ul>
@@ -596,12 +596,12 @@ title="Print to PDF"
 <figure class="align-default" id="days">
 <img alt="_images/10days.png" src="_images/10days.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 36 </span><span class="caption-text"><span style="font-variant:small-caps;">MoonShineP</span>’s performance in re-creating moonlight illuminance level after calibration. MoonShineR prediction = black line. Radiometer measurements of the re-created illuminance = red line. Note that the lines are very close. This test was performed in a lab setting, running a simulated LED schedule for 9 nights around a full moon.</span><a class="headerlink" href="#days" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text"><span style="font-variant:small-caps;">MoonShineP</span>’s performance in re-creating moonlight illuminance level after calibration. MoonShineR prediction = black line. Light meter measurements of the re-created illuminance = red line. Note that the lines are very close. This test was performed in a lab setting, running a simulated LED schedule for 9 nights around a full moon.</span><a class="headerlink" href="#days" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the user intends to heavily modify the color spectrum of the LED arrays, for example to recreate a color-shifted habitat, radiometer measured illuminance (in lx) is not an appropriate unit. This is because photopic illuminance measurements assume a “natural light spectrum” (i.e. light similar to natural sunlight). In these cases the user should instead measure light level and calibrate <span style="font-variant:small-caps;">MoonShineP</span> in spectral irradiance (unit photons OR Watts per m2 s nm) using a spectrometer.</p>
+<p>If the user intends to heavily modify the color spectrum of the LED arrays, for example to recreate a color-shifted habitat, light meter measured illuminance (in lx) is not an appropriate unit. This is because photopic illuminance measurements assume a “natural light spectrum” (i.e. light similar to natural sunlight). In these cases the user should instead measure light level and calibrate <span style="font-variant:small-caps;">MoonShineP</span> in spectral irradiance (<code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">m⁻²</span> <span class="pre">nm⁻¹</span></code>, or <code class="docutils literal notranslate"><span class="pre">photons</span> <span class="pre">m⁻²</span> <span class="pre">s⁻¹</span> <span class="pre">nm⁻¹</span></code>) using a spectrometer.</p>
 </div>
 </section>
 </section>
@@ -610,13 +610,13 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>To achieve sunlight level illuminance, dimming of the LEDs is not required.</p></li>
 <li><p>The user must first decide what level of sunlight illuminance they require. Direct overhead sunlight can be over 100,000 lx. It is probably impractical and unnecessary to re-create such high levels of illuminance.</p></li>
-<li><p>Nonetheless, we recommend the re-creation of sunlight at well over 200 lx, since 200 lx is approximately the illuminance when the sun is at the horizon. This means that if the light cannot achieve 200 lx, <em><span style="font-variant:small-caps;">MoonShineP</span></em> is not even re-creating the full range of twilight illuminance.</p></li>
+<li><p>Nonetheless, we recommend the re-creation of sunlight at well over 200 lx, since 200 lx is approximately the illuminance when the sun is at the horizon. This means that if the light cannot achieve 200 lx, <span style="font-variant:small-caps;">MoonShineP</span> is not even re-creating the full range of twilight illuminance.</p></li>
 <li><p>The LED strip can be adhered to the ceiling, with the LEDs pointing downward, to illuminate the room like a fluorescent light fixture, or it could be adhered directly above the animal enclosure to provide a much stronger light intensity. As a reference, the illuminance measurement at 50cm from a warm white 144-LED SK6812 LED strip is around 1000 lx.</p></li>
-<li><p>Although it is nearly impossible to re-create full intensity sunlight using <em><span style="font-variant:small-caps;">MoonShineP</span></em> (i.e., the illuminance level would shortly plateau after sunrise), the sunlight LED array still need to be calibrated to ensure correct illuminance levels before the plateau occurs (twilight and the short period after sunrise). To calibrate the sunlight qLED array, follow these steps:</p>
+<li><p>Although it is nearly impossible to re-create full intensity sunlight using <span style="font-variant:small-caps;">MoonShineP</span> (i.e., the illuminance level would shortly plateau after sunrise), the sunlight LED array still need to be calibrated to ensure correct illuminance levels before the plateau occurs (twilight and the short period after sunrise). To calibrate the sunlight LED array, follow these steps:</p>
 <ol class="simple">
 <li><p>Instruct the sunlight LED array to produce light at full intensity. See <a class="reference internal" href="#content-calibration-schedule"><span class="std std-ref">Create a calibration schedule</span></a> to create a sunlight version of the calibration schedule (<code class="docutils literal notranslate"><span class="pre">LED_schedule_sun.csv</span></code>).</p></li>
-<li><p>Measure the illuminance on the level of the animal enclosure with a radiometer. This is the calibration point for the sunlight/twilight LED array.</p></li>
-<li><p>Use this calibration point as the theoretical_max value in <em><span style="font-variant:small-caps;">MoonShineR</span>: Sunlight/twilight LED scheduler</em>.</p></li>
+<li><p>Measure the illuminance on the level of the animal enclosure with a light meter. This is the calibration point for the sunlight/twilight LED array.</p></li>
+<li><p>Use this calibration point as the theoretical_max value in <span style="font-variant:small-caps;">MoonShineR</span>: Sunlight/twilight LED scheduler_.</p></li>
 </ol>
 </li>
 </ul>

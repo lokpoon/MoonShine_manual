@@ -398,12 +398,50 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-font-variant-small-caps-moonshiner-span-r-package">
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   R package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-font-variant-small-caps-moonshiner-span-scheduler-scripts-and-span-style-font-variant-small-caps-moonshinep-span">
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   scheduler scripts and
+   <span style="font-variant:small-caps;">
+    MoonShineP
+   </span>
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -415,6 +453,33 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-font-variant-small-caps-moonshiner-span-r-package">
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   R package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-font-variant-small-caps-moonshiner-span-scheduler-scripts-and-span-style-font-variant-small-caps-moonshinep-span">
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   scheduler scripts and
+   <span style="font-variant:small-caps;">
+    MoonShineP
+   </span>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -424,17 +489,39 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="download-files">
 <span id="content-lightbox-download"></span><h1>Download files<a class="headerlink" href="#download-files" title="Permalink to this headline">#</a></h1>
-<p>All the required files are hosted on this GitHub site:
-<a class="reference external" href="https://github.com/Crampton-Lab/MoonShine">https://github.com/Crampton-Lab/MoonShine</a></p>
-<p>Files of folder or script are zipped for easier download.</p>
-<ol class="simple">
-<li><p>To download a file, click the file name.</p></li>
-<li><p>Click the download button.</p></li>
-<li><p>Unzip the download file if the file is in <code class="docutils literal notranslate"><span class="pre">.zip</span></code></p></li>
-</ol>
-<p>Source code for the MoonShineR package is available at:
-<a class="reference external" href="https://github.com/Crampton-Lab/MoonShineR_package">https://github.com/Crampton-Lab/MoonShineR_package</a></p>
-<p>Throughout this guide we have linked a few external tutorial websites. If any of the links are not working, pdf screenshots of the sites are available in the GitHub repository.</p>
+<section id="span-style-font-variant-small-caps-moonshiner-span-r-package">
+<h2><span style="font-variant:small-caps;">MoonShineR</span> R package<a class="headerlink" href="#span-style-font-variant-small-caps-moonshiner-span-r-package" title="Permalink to this headline">#</a></h2>
+<p>The <em><span style="font-variant:small-caps;">MoonShineR</span></em> R package, used to predict ground illuminance from moonlight, twilight, and sunlight, is available through <a class="reference external" href="https://cran.r-project.org/package=MoonShineR">CRAN</a> and should be installed directly from R:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s2">&quot;MoonShineR&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For documentation and usage examples, see the <a class="reference external" href="https://cran.r-project.org/package=MoonShineR">MoonShineR CRAN page</a> or Chapter 1 of this manual.</p>
+<p>The source code for the CRAN package is maintained separately in the <a class="reference external" href="https://github.com/Crampton-Lab/MoonShineR_package">MoonShineR_package GitHub repository</a>.</p>
+</section>
+<section id="span-style-font-variant-small-caps-moonshiner-span-scheduler-scripts-and-span-style-font-variant-small-caps-moonshinep-span">
+<h2><span style="font-variant:small-caps;">MoonShineR</span> scheduler scripts and <span style="font-variant:small-caps;">MoonShineP</span><a class="headerlink" href="#span-style-font-variant-small-caps-moonshiner-span-scheduler-scripts-and-span-style-font-variant-small-caps-moonshinep-span" title="Permalink to this headline">#</a></h2>
+<p>The two stand-alone <span style="font-variant:small-caps;">MoonShineR</span> scheduler scripts, <span style="font-variant:small-caps;">MoonShineP</span> Python programs, and supporting files required for experimental light re-creation are available from the <a class="reference external" href="https://github.com/Crampton-Lab/MoonShine">main MoonShine GitHub repository</a>.</p>
+<p>These include:</p>
+<p><strong>MoonShineR scheduler scripts:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">moonshineR_moonlight_scheduler_(ver2025oct).R</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">moonshineR_sunlight_twilight_scheduler_(ver2025oct).R</span></code></p></li>
+</ul>
+<p><strong>MoonShineP Python programs:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">control_moon</span></code> folder, containing <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">control_sun</span></code> folder, containing <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear_moon.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear_sun.py</span></code></p></li>
+</ul>
+<p><strong>Supporting Excel files:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RGBW_LED_spectrum.xlsx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">manual_scheduler.xlsx</span></code></p></li>
+</ul>
+<p>To download an individual file from GitHub, open the file and select the download option. Alternatively, the entire repository can be downloaded using <strong>Code → Download ZIP</strong>.</p>
+<p>Detailed instructions for using these files are provided in Chapters 2–8 of this manual.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">

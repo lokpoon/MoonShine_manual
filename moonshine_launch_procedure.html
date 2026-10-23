@@ -545,11 +545,11 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="span-style-font-variant-small-caps-moonshinep-span-launch-procedure">
 <span id="content-launch"></span><h1>8. <span style="font-variant:small-caps;">MoonShineP</span>: Launch procedure<a class="headerlink" href="#span-style-font-variant-small-caps-moonshinep-span-launch-procedure" title="Permalink to this headline">#</a></h1>
-<p>This chapter describe how to launch <em><span style="font-variant:small-caps;">MoonShineP</span></em>, using the example of re-creating moonlight only (i.e., using the moon version of the files, which have filenames labeled “moon” before the file suffix). The moon version files include: <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> located within <em>Desktop/control_moon</em> (on the Raspberry Pi Linux Desktop). And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code>. The user should apply the same procedures for launching the sunlight/twilight system, using the sun version of the files, namely <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_sun.csv</span></code> located within <em>Desktop/control_sun</em>. And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code>.</p>
+<p>This chapter describe how to launch <span style="font-variant:small-caps;">MoonShineP</span>, using the example of re-creating moonlight only (i.e., using the moon version of the files, which have filenames labeled “moon” before the file suffix). The moon version files include: <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> located within <em>Desktop/control_moon</em> (on the Raspberry Pi Linux Desktop). And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code>. The user should apply the same procedures for launching the sunlight/twilight system, using the sun version of the files, namely <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_sun.csv</span></code> located within <em>Desktop/control_sun</em>. And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code>.</p>
 <p>The user should follow the two setup chapters before performing a launch. Here we continue from the software setup section <a class="reference internal" href="moonshine_software_setup.html#content-systemd"><span class="std std-ref">Setting up systemd service</span></a>, in which we described how to link a <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> to the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> located in <em>Desktop/control_moon</em></p>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
-<p>Things to check before a launch. Some of the information here are reminders of important points already mentioned in the other chapters. If <em><span style="font-variant:small-caps;">MoonShine</span></em> does not launch properly, check the followings for potential mistakes.</p>
+<p>Things to check before a launch. Some of the information here are reminders of important points already mentioned in the other chapters. If <span style="font-variant:small-caps;">MoonShine</span> does not launch properly, check the followings for potential mistakes.</p>
 <section id="generate-a-working-led-schedule-moon-csv">
 <h3>1. Generate a working <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code><a class="headerlink" href="#generate-a-working-led-schedule-moon-csv" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
@@ -558,7 +558,7 @@ title="Print to PDF"
 <li><p>For the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> to run, the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> must contain a row matching the time at launch. In other words, there cannot be a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> where the first row is a time in the future.</p></li>
 <li><p>For example, let’s say that the user launches <span style="font-variant:small-caps;">MoonShineP</span> at noon but does not want the LED arrays to start a light re-creation until midnight. In this case, the user should generate a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> by specifying noon as the start time in <span style="font-variant:small-caps;">MoonShineP: Moonlight scheduler</span>. Then open the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> in Excel and edit the rows of LED crude and fine value before midnight to zero. Having launched this edited <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> at noon, the LEDs will start illuminating at midnight. Between noon (the launch time), the launch time, and midnight, the simulation will run, but because the LEDs rows have been edited to zero, there will be no illumination.</p></li>
 <li><p>For the same reason, the user should never delete entire rows with excel in the middle of the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>. This will cause errors. If dark periods are required, the user must instead replace the LED illumination value with zeros.</p></li>
-<li><p>Check that ‘<em>datetime</em>’ is in the correct format. See <a class="reference internal" href="edit_LED_schedule_csv.html#content-datetime"><span class="std std-ref">Problem with Excel datetime</span></a></p></li>
+<li><p>Check that the ‘<em>datetime</em>’column in the schedule is in the correct format. See <a class="reference internal" href="edit_LED_schedule_csv.html#content-datetime"><span class="std std-ref">Problem with Excel datetime</span></a></p></li>
 </ul>
 </section>
 <section id="check-the-location-of-files">
@@ -582,17 +582,24 @@ title="Print to PDF"
 </section>
 <section id="to-run-moonshine-moon-service">
 <h2>To run <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code><a class="headerlink" href="#to-run-moonshine-moon-service" title="Permalink to this headline">#</a></h2>
-<p>In the terminal,</p>
 <ol>
-<li><p>Enable the service file by entering:</p>
+<li><p>To configure <span style="font-variant:small-caps;">MoonShineP</span> to start automatically when the Raspberry Pi boots, enter the following command in the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">moonshine_moon</span><span class="o">.</span><span class="n">service</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><em><span style="font-variant:small-caps;">MoonShineP</span></em> should be up and running once the system clock hits 00 second.</p></li>
+<li><p><span style="font-variant:small-caps;">MoonShineP</span> should be up and running once the system clock hits 00 second.</p></li>
 </ul>
 </li>
-<li><p>To see if the service is active, enter:</p>
+</ol>
+<p>To start <span style="font-variant:small-caps;">MoonShineP</span> immediately, without rebooting the Raspberry Pi, enter:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```
+sudo systemctl start moonshine_moon.service
+```
+</pre></div>
+</div>
+<ol>
+<li><p>To check whether the service is running, enter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="nb">list</span><span class="o">-</span><span class="n">units</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">service</span> <span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">active</span>
 </pre></div>
 </div>
@@ -623,7 +630,7 @@ title="Print to PDF"
 <li><p>On entering this text, the user will see a new window containing a summary of CPU usage. The user should now check that every minute there is CPU activity associated with <span style="font-variant:small-caps;">MoonShineP</span> operation (corresponding to when MoonShineP changes illumination values in the LEDs).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Starting 8 sec before the start of every minute, one of the CUP cores (two if running two services, both moon and sunlight recreation) of the CPU cores will increase usage to 100% (<a class="reference internal" href="#htop"><span class="std std-numref">Fig. 38</span></a>). <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> will be listed as the top task in the list. The LEDs will be be updated at the start of the minute, and CPU usage will return to normal.</p>
+<p>Starting 8 sec before the start of every minute, one of the CPU cores (two if running two services, both moon and sunlight recreation) of the CPU cores will increase usage to 100% (<a class="reference internal" href="#htop"><span class="std std-numref">Fig. 38</span></a>). <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> will be listed as the top task in the list. The LEDs will be be updated at the start of the minute, and CPU usage will return to normal.</p>
 </div>
 <figure class="align-default" id="htop">
 <img alt="_images/htop.png" src="_images/htop.png" />
@@ -644,7 +651,7 @@ title="Print to PDF"
 <section id="to-end-moonshine-moon-service">
 <h2>To end <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code><a class="headerlink" href="#to-end-moonshine-moon-service" title="Permalink to this headline">#</a></h2>
 <ol>
-<li><p>Stopping the service file will stop <em><span style="font-variant:small-caps;">MoonShineP</span></em>’s Python code from continuing to refresh the LEDs (the LEDs will remain at the last intensity). This is the only way to stop <em><span style="font-variant:small-caps;">MoonShineP</span></em>.</p>
+<li><p>Stopping the service file will stop <span style="font-variant:small-caps;">MoonShineP</span>’s Python code from continuing to refresh the LEDs (the LEDs will remain at the last intensity). This is the only way to stop <span style="font-variant:small-caps;">MoonShineP</span>.</p>
 <ul class="simple">
 <li><p>To stop the service file, enter the following into the terminal:</p></li>
 </ul>
@@ -669,6 +676,10 @@ title="Print to PDF"
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Whenever the Raspberry Pi is rebooted, <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code> launchs automatically. Even when the user stops the systemd service, it will start itself upon a reboot.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The same procedures can be used for the sunlight/twilight service by replacing <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> with <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code>, as mentioned in at the page top.</p>
 </div>
 </li>
 </ol>

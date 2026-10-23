@@ -19,7 +19,7 @@ kernelspec:
 
 | Item  | SKU/model number | Company  | Quantity required | Price | Link   | Note |
 |-------|------------------|----------|-------------------|-------|--------|------|
-| Raspberry Pi 4 model B kit | B0B7DFF7TY | GeeekPi | 1 | $200 | [Amazon](https://www.amazon.com/GeeekPi-Raspberry-2GB-Starter-Kit/dp/B0B7DFF7TY/ref=sr_1_5?crid=1BQNGTSE4SSDJ&keywords=raspberry+pi+4+kit&qid=1674623289&sprefix=raspberry+pi+4+kit%2Caps%2C121&sr=8-5&ufe=app_do%3Aamzn1.fos.f5122f16-c3e8-4386-bf32-63e904010ad0) | [^1] |
+| Raspberry Pi 4 model B kit (other iteration of Pi should also work) | B0B7DFF7TY | GeeekPi | 1 | $200 | [Amazon](https://www.amazon.com/GeeekPi-Raspberry-2GB-Starter-Kit/dp/B0B7DFF7TY/ref=sr_1_5?crid=1BQNGTSE4SSDJ&keywords=raspberry+pi+4+kit&qid=1674623289&sprefix=raspberry+pi+4+kit%2Caps%2C121&sr=8-5&ufe=app_do%3Aamzn1.fos.f5122f16-c3e8-4386-bf32-63e904010ad0) | [^1] |
 | RTC module (DS3231) | 3-01-1198 | HiLetgo | 1 | $19 | [Amazon](https://www.amazon.com/HiLetgo-DS3231-Precision-Arduino-Raspberry/dp/B01N1LZSK3/ref=sr_1_2?crid=33U6N5U6HSRWK&keywords=rtc+ds+3231&qid=1674685955&sprefix=rtc+ds+3231%2Caps%2C72&sr=8-2) | - |
 | Generic mouse and keyboard | - | - | 1 | ~40 | - | - |
 | Generic HDMI monitor | - | - | 1 | ~$100 | - | - |
@@ -30,7 +30,7 @@ kernelspec:
 | Lumber boards | - | Home Depot | One set per LED strip | $17 | - | [^5] |
 | Generic matte black spray paint | - | - | 1 | $6 | - | - |
 | Neutral Density (ND) filter sheets | - | Lee Filters | Depends | ~$20 per diffusion box | [BarnDoor](https://www.filmandvideolighting.com/lee-neutral-denisty-nd-gel-filter-sheet-film-video-photo-lighting.html) | [^6] |
-| Lux meter/radiometer/spectrometer | - | - | 1 | $200 to >5000 | - | [^7] |
+| Light meter/spectrometer | - | - | 1 | $200 to >5000 | - | [^7] |
 | UPS backup battery power | BE425M | APC | 1 | $60 | [Amazon](https://www.amazon.com/APC-Battery-Protector-Back-UPS-BE425M/dp/B01HDC236Q/ref=sr_1_7?keywords=uninterruptible%2Bpower%2Bsupply&qid=1674685859&sprefix=uninter%2Caps%2C105&sr=8-7&ufe=app_do%3Aamzn1.fos.006c50ae-5d4c-4777-9bc0-4513d670b6bc&th=1) | - |
 |  |  |  |  |  |  |  |
 ```{note}
@@ -48,11 +48,11 @@ Estimated total cost for one <span style="font-variant:small-caps;">MoonShineP</
 - Masking tape
 - Foam pieces
 
-[^1]: Any equivalent kit of the Raspberry Pi 4 model B from other companies would work. Beside the Raspberry Pi itself, the kit should include all the accessories such as HDMI cable, power supply, case, SD card, etc. _<span style="font-variant:small-caps;">MoonShineP</span>_ only requires the 2GB RAM option, but there are options for more RAM (4GB or 8GB).
+[^1]: Any equivalent kit of the Raspberry Pi 4 model B from other companies would work. Beside the Raspberry Pi itself, the kit should include all the accessories such as HDMI cable, power supply, case, SD card, etc. <span style="font-variant:small-caps;">MoonShineP</span> only requires the 2GB RAM option, but there are options for more RAM (4GB or 8GB).
     
     Prices are for February 2023. At the time of writing this document, the price of a Raspberry Pi is much higher than the official price due to supply issues.
 
-[^2]: We strongly recommend the following options: 1m, 144 LED, Warm White. There are IP65 water resistant and IP30 normal versions available for this model. The user can choose one suitable for the required application. We picked warm white to avoid a substantial blue spike in the white channel spectrum. A different strip length and LED number can be selected, but the 1m 144 LED is the best suited for most situations, and the default options in the _<span style="font-variant:small-caps;">MoonShineR</span>_ suite will work for this model.
+[^2]: We strongly recommend the following options: 1m, 144 LED, Warm White. There are IP65 water resistant and IP30 normal versions available for this model. The user can choose one suitable for the required application. We picked warm white to avoid a substantial blue spike in the white channel spectrum. A different strip length and LED number can be selected, but the 1m 144 LED is the best suited for most situations, and the default options in the <span style="font-variant:small-caps;">MoonShineR</span> suite will work for this model.
 
     Two LED strips are required for moonlight recreation. More can be added, in multiples of two, to daisy chain many more strips, e.g., to generate a higher illuminance when recreating sunlight.
     
@@ -78,11 +78,11 @@ Estimated total cost for one <span style="font-variant:small-caps;">MoonShineP</
     
     Rosco is another company that makes ND filter sheets.
 
-[^7]: “Lux meter” is a commercial term for a radiometer; these devices measure illuminance in lux. A measure of illuminance is essential to calibrate <span style="font-variant:small-caps;">MoonShineP</span>. A spectrometer is a radiometer that measures spectral irradiance – measures of light intensity values across (and just outside) the visible light spectrum. Spectral irradiance measurements can easily be converted into illuminance. Spectrometers are generally more expensive than radiometers, although precision low-light sensitive radiometers suitable for quantifying moonlight levels are also expensive.
+[^7]: A light meter that measures light intensity in the intergrated measure of illuminance (in unit lux). They are sometime confusingly refered to as radiometer. Measuring the light intensity is essential for calibrating <span style="font-variant:small-caps;">MoonShineP</span>. A spectrometer also measures light but without integration (i.e., losing) of wavelength data, measuring spectral irradiance. Spectrometers are generally more expensive than meter that measures lux, especially ones sensitive to low light levels.
     
-    An accurate illuminance measuring device is critical for calibrating MoonShineP, but ones that measures at low light are very expensive. We do not want the cost of the radiometer to discourage the use of <span style="font-variant:small-caps;">MoonShineP</span> for moonlight related experiments. Still, it is critical to obtain a meter that has NIST-Traceable calibration, like the International Light Technology [ILT10C](https://www.intl-lighttech.com/products/ilt10c-luxlight-meter-nist-traceable-calibration?gclid=Cj0KCQiAw8OeBhCeARIsAGxWtUzB0YaQDpYF5fXMYee-U9zSQgnbmph4LrlmD0inkbSdw4FtaJ-AjjsaApwYEALw_wcB) (lower limit of 10 lx, cost ~$350). Lower cost meters do not perform accurately at moonlight level illuminance (i.e., <0.3 lx). Where only a non low-light sensitive radiometer is available (able to read below 1E-2 lx with a resolution +/- 1E-2 lx or better), like the ILT10C,  <span style="font-variant:small-caps;">MoonShineP</span> can be calibrated using a comparative method. See further explanations and solutions in {ref}`content:lightbox:radiometer`.
+    An accurate light measuring device is critical for calibrating MoonShineP, but it can be expensive. We do not want the cost of a low-light-sensitive meter to discourage the use of <span style="font-variant:small-caps;">MoonShineP</span> for moonlight related experiments. Still, it is critical to obtain a meter that has NIST-Traceable calibration, like the International Light Technology [ILT10C](https://www.intl-lighttech.com/products/ilt10c-luxlight-meter-nist-traceable-calibration?gclid=Cj0KCQiAw8OeBhCeARIsAGxWtUzB0YaQDpYF5fXMYee-U9zSQgnbmph4LrlmD0inkbSdw4FtaJ-AjjsaApwYEALw_wcB) (lower limit of 10 lx, cost ~$350). Lower cost meters do not perform accurately at moonlight level illuminance (i.e., <0.3 lx). Where only a non low-light sensitive meter is available (able to read below 1E-2 lx with a resolution +/- 1E-2 lx or better), like the ILT10C,  <span style="font-variant:small-caps;">MoonShineP</span> can be calibrated using a comparative method. See further explanations and solutions in {ref}`content:lightbox:radiometer`.
     
-    We used the International Light Technology [ILT-5000](https://www.intl-lighttech.com/products/ilt5000-researchlab-radiometer) radiometer, with a SED 100-10/U broadband silicon photosensor, WU wide angle quartz diffuser, and Y4 photopic filter. This device is sensitive to light as low as 0.0002 lx.
+    We used the International Light Technology [ILT-5000](https://www.intl-lighttech.com/products/ilt5000-researchlab-radiometer) lux meter, with a SED 100-10/U broadband silicon photosensor, WU wide angle quartz diffuser, and Y4 photopic filter. This device is sensitive to light as low as 0.0002 lx.
 
 (content:hardware:assemble)=
 ## Assemble Raspberry Pi and LED strips

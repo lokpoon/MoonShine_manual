@@ -15,14 +15,14 @@ kernelspec:
 (content:launch)=
 # 8. <span style="font-variant:small-caps;">MoonShineP</span>: Launch procedure
 
-This chapter describe how to launch _<span style="font-variant:small-caps;">MoonShineP</span>_, using the example of re-creating moonlight only (i.e., using the moon version of the files, which have filenames labeled "moon" before the file suffix). The moon version files include: `moonshine_moon.py` and `LED_schedule_moon.csv` located within *Desktop/control_moon* (on the Raspberry Pi Linux Desktop). And the systemd service `moonshine_moon.service`. The user should apply the same procedures for launching the sunlight/twilight system, using the sun version of the files, namely `moonshine_sun.py` and `LED_schedule_sun.csv` located within *Desktop/control_sun*. And the systemd service `moonshine_sun.service`.
+This chapter describe how to launch <span style="font-variant:small-caps;">MoonShineP</span>, using the example of re-creating moonlight only (i.e., using the moon version of the files, which have filenames labeled "moon" before the file suffix). The moon version files include: `moonshine_moon.py` and `LED_schedule_moon.csv` located within *Desktop/control_moon* (on the Raspberry Pi Linux Desktop). And the systemd service `moonshine_moon.service`. The user should apply the same procedures for launching the sunlight/twilight system, using the sun version of the files, namely `moonshine_sun.py` and `LED_schedule_sun.csv` located within *Desktop/control_sun*. And the systemd service `moonshine_sun.service`.
   
 The user should follow the two setup chapters before performing a launch. Here we continue from the software setup section {ref}`content:systemd`, in which we described how to link a `moonshine_moon.service` to the `moonshine_moon.py` located in _Desktop/control_moon_
 
 
 ## Requirements
 
-Things to check before a launch. Some of the information here are reminders of important points already mentioned in the other chapters. If _<span style="font-variant:small-caps;">MoonShine</span>_ does not launch properly, check the followings for potential mistakes. 
+Things to check before a launch. Some of the information here are reminders of important points already mentioned in the other chapters. If <span style="font-variant:small-caps;">MoonShine</span> does not launch properly, check the followings for potential mistakes. 
 
 ### 1. Generate a working `LED_schedule_moon.csv`
 
@@ -35,7 +35,7 @@ Things to check before a launch. Some of the information here are reminders of i
 
 - For the same reason, the user should never delete entire rows with excel in the middle of the `LED_schedule_moon.csv`. This will cause errors. If dark periods are required, the user must instead replace the LED illumination value with zeros.
 
-- Check that '_datetime_' is in the correct format. See {ref}`content:datetime`
+- Check that the '_datetime_'column in the schedule is in the correct format. See {ref}`content:datetime`
 
 ### 2. Check the location of files
 
@@ -53,20 +53,21 @@ Things to check before a launch. Some of the information here are reminders of i
 
 ## To run `moonshine_moon.service`
 
-In the terminal,
-
-1. Enable the service file by entering:
-   
+1. To configure <span style="font-variant:small-caps;">MoonShineP</span> to start automatically when the Raspberry Pi boots, enter the following command in the terminal:
     ```
     sudo systemctl enable moonshine_moon.service
     ```
    
-   - _<span style="font-variant:small-caps;">MoonShineP</span>_ should be up and running once the system clock hits 00 second.
+   - <span style="font-variant:small-caps;">MoonShineP</span> should be up and running once the system clock hits 00 second.
    
+To start <span style="font-variant:small-caps;">MoonShineP</span> immediately, without rebooting the Raspberry Pi, enter:
 
+    ```
+    sudo systemctl start moonshine_moon.service
+    ```
     
-2. To see if the service is active, enter:
-
+    
+2. To check whether the service is running, enter:
     ```
     systemctl list-units --type=service --state=active
     ```
@@ -92,7 +93,7 @@ In the terminal,
 - On entering this text, the user will see a new window containing a summary of CPU usage. The user should now check that every minute there is CPU activity associated with <span style="font-variant:small-caps;">MoonShineP</span> operation (corresponding to when MoonShineP changes illumination values in the LEDs).
 
     ```{note}
-       Starting 8 sec before the start of every minute, one of the CUP cores (two if running two services, both moon and sunlight recreation) of the CPU cores will increase usage to 100% ({numref}`htop`). `moonshine_moon.service` will be listed as the top task in the list. The LEDs will be be updated at the start of the minute, and CPU usage will return to normal.
+       Starting 8 sec before the start of every minute, one of the CPU cores (two if running two services, both moon and sunlight recreation) of the CPU cores will increase usage to 100% ({numref}`htop`). `moonshine_moon.service` will be listed as the top task in the list. The LEDs will be be updated at the start of the minute, and CPU usage will return to normal.
     ```
     ```{figure} /images/htop.png
     :name: htop
@@ -106,8 +107,9 @@ In the terminal,
       
 3. A `log.txt` file will be created in *Desktop/control_moon*. This log allows the user to check the LED intensity values of the first 3 LEDs in the array. This file will be replaced with a new one upon restarting `moonshine_moon.service`.
 
+
 ## To end `moonshine_moon.service`
-1. Stopping the service file will stop _<span style="font-variant:small-caps;">MoonShineP</span>_’s Python code from continuing to refresh the LEDs (the LEDs will remain at the last intensity). This is the only way to stop _<span style="font-variant:small-caps;">MoonShineP</span>_.
+1. Stopping the service file will stop <span style="font-variant:small-caps;">MoonShineP</span>’s Python code from continuing to refresh the LEDs (the LEDs will remain at the last intensity). This is the only way to stop <span style="font-variant:small-caps;">MoonShineP</span>.
    
    - To stop the service file, enter the following into the terminal:
    ```
@@ -131,4 +133,7 @@ In the terminal,
 
     ```{attention}
     Whenever the Raspberry Pi is rebooted, `moonshine_moon.service` and `moonshine_sun.service` launchs automatically. Even when the user stops the systemd service, it will start itself upon a reboot.
+    ```
+    ```{attention}
+    The same procedures can be used for the sunlight/twilight service by replacing `moonshine_moon.service` with `moonshine_sun.service`, as mentioned in at the page top.
     ```

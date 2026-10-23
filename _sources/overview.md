@@ -1,31 +1,38 @@
 
 # Overview
+```{admonition} How to cite <span style="font-variant:small-caps;">MoonShine</span>
+:class: note
 
-### How to cite _<span style="font-variant:small-caps;">MoonShine</span>_
-Poon, L., Jenks, I. T., Crampton, W. G. R. (2024). MoonShine: A software-hardware system for simulating moonlight ground illuminance and re-creating artificial moonlight cycles in a laboratory environment. Methods in Ecology and Evolution. <ins>https://doi.org/10.1111/2041-210X.14299</ins>
+Poon, L., Jenks, I. T., Crampton, W. G. R. (2024). MoonShine: A software-hardware system for simulating moonlight ground illuminance and re-creating artificial moonlight cycles in a laboratory environment. _Methods in Ecology and Evolution_. **15**: 701-715. <ins>https://doi.org/10.1111/2041-210X.14299</ins>
+```
+## The <span style="font-variant:small-caps;">MoonShine</span> system
 
-## <span style="font-variant:small-caps;">MoonShineP</span> and its companion program <span style="font-variant:small-caps;">MoonShineR</span>
+<span style="font-variant:small-caps;">MoonShine</span> is an open-source software-hardware system for predicting natural ground illuminance from moonlight, twilight, and sunlight, and for re-creating natural or experimentally manipulated light cycles in laboratory environments using LED arrays.
 
+<span style="font-variant:small-caps;">MoonShine</span> comprises two main software components: **<span style="font-variant:small-caps;">MoonShineR</span>** and **<span style="font-variant:small-caps;">MoonShineP</span>.**
 
+<span style="font-variant:small-caps;">MoonShineR</span> consists of an R package and two additional stand-alone R scheduler scripts, each serving a different purpose.
 
-_<span style="font-variant:small-caps;">MoonShineP</span>_ is an open-source software-hardware system for re-creating moonlight cycles (as well as sunlight and twilight cycles) in a laboratory setting, using LED light. _<span style="font-variant:small-caps;">MoonShineP</span>_ comprises a Python program running on a Raspberry Pi computer that controls the intensity of an array of individually addressable LEDs positioned in diffusion boxes. _<span style="font-variant:small-caps;">MoonShineP</span>_ uses a companion R package with accompanying R scripts, _<span style="font-variant:small-caps;">MoonShineR</span>_, to predict moonlight and/or solar ground illuminance values (in lux) through a defined time range, at any geographical location. The predicted illuminance values are converted into LED intensity values and saved to a `.csv` schedule file. _<span style="font-variant:small-caps;">MoonShineP</span>_ uses this file to control the LED array. _<span style="font-variant:small-caps;">MoonShineR</span>_ can also be used to predict moonlight ground illuminance for use as a model predictor variable. This document is a tutorial and operating manual for _<span style="font-variant:small-caps;">MoonShineP</span>_ and _<span style="font-variant:small-caps;">MoonShineR</span>_.
+This instruction manual describes the operation of the <span style="font-variant:small-caps;">MoonShineR</span> package, the two stand-alone scheduler scripts, and the <span style="font-variant:small-caps;">MoonShineP</span> software and hardware.
 
-_<span style="font-variant:small-caps;">MoonShineR</span>_ is a R package and two R scripts designed to predict the ground illuminance of moonlight, twilight, and sunlight at any geographic location and any time or range of times. Each of the three versions of _<span style="font-variant:small-caps;">MoonShineR</span>_ programs serves a different purposes, and generates outputs tailored to that purpose.
+## <span style="font-variant:small-caps;">MoonShineR</span>
 
-All the required files are hosted on the GitHub site:
-[https://github.com/Crampton-Lab/MoonShine](https://github.com/Crampton-Lab/MoonShine)
+The **<span style="font-variant:small-caps;">MoonShineR</span> R package** predicts ground illuminance (in lux) from moonlight, twilight, and sunlight for specified geographical locations and time periods. It can be used independently of the laboratory light-recreation system and is particularly useful for ecological studies requiring natural light levels as quantitative predictor variables. The <span style="font-variant:small-caps;">MoonShineR</span> package is available through [CRAN](https://cran.r-project.org/package=MoonShineR) and should be installed directly from R:
+```r
+install.packages("MoonShineR")
+```
+The R package's source code is maintained in [MoonShineR_package GitHub repository](https://github.com/Crampton-Lab/MoonShineR_package).
 
-1. _**<span style="font-varianRt:small-caps;">MoonShineR</span>: R package**_ simply predicts moonlight/twilight/sunlight illuminance. It is intended for use in field studies where a biologist requires moonlight illuminance values as a model predictor variable.
+The two **stand-alone <span style="font-variant:small-caps;">MoonShineR</span> scheduler scripts** provide additional functionality for generating LED control schedules for use with <span style="font-variant:small-caps;">MoonShineP</span>. These scripts are not included in the CRAN package and are available from the [main MoonShine GitHub repository](https://github.com/Crampton-Lab/MoonShine).
 
-_**<span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler**_ and _**<span style="font-variant:small-caps;">MoonShineR</span>: Sunlight & twilight scheduler**_ are designed for use in combination with _<span style="font-variant:small-caps;">MoonShineP</span>_ ({numref}`map`).
+- **<span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler** predicts moonlight illuminance and converts these predictions into LED intensity values, generating an `LED_schedule_moon.csv` file for <span style="font-variant:small-caps;">MoonShineP</span>.
+- **<span style="font-variant:small-caps;">MoonShineR</span>: Sunlight/twilight scheduler** predicts sunlight and twilight illuminance and converts these predictions into LED intensity values, generating an `LED_schedule_sun.csv` file for <span style="font-variant:small-caps;">MoonShineP</span>.
 
-2. _**<span style="font-variant:small-caps;">MoonShineR</span>: Moonlight scheduler**_ predicts only moonlight illuminance values and convert these into LED intensity values.  It generates an `LED_schedule_moon.csv` table that serves as the schedule for _<span style="font-variant:small-caps;">MoonShineP</span>_.
+## <span style="font-variant:small-caps;">MoonShineP</span>
 
-3. _**<span style="font-variant:small-caps;">MoonShineR</span>: Sunlight & twilight scheduler**_ predicts only sunlight and twilight illuminance values and converts these into LED intensity values. It generates an `LED_schedule_sun.csv` table that serves as a schedule for _<span style="font-variant:small-caps;">MoonShineP</span>_.
+**<span style="font-variant:small-caps;">MoonShineP</span>** is a Python program running on a Raspberry Pi computer that reads these schedule files and controls arrays of individually addressable LEDs. This allows natural or experimentally manipulated moonlight, sunlight, and twilight cycles to be re-created in laboratory environments.
 
-## _<span style="font-variant:small-caps;">MoonShineP</span>_
-
-_<span style="font-variant:small-caps;">MoonShineP</span>_ is an LED control system for recreating realistic moonlight, twilight, and sunlight regimes in a laboratory setting. A light regime can be freely edited, making it ideal for experiments requiring a specific lighting scenario. _<span style="font-variant:small-caps;">MoonShineP</span>_ runs a Python program on the Linux operating system of a Raspberry Pi computer to control an array of LEDs. Every minute, the Python program reads the light schedule (generated by _<span style="font-variant:small-caps;">MoonShineR</span>: schedulers_) to refresh the LED intensities. Users can run a moonlight schedule as well as a sunlight and twilight schedule simultaneously on the Raspberry Pi. In this way, the Raspberry Pi can separately control two arrays of LED strips, so as to fully re-create all three major sources of natural light, around the clock (see concept in {numref}`map`).
+<span style="font-variant:small-caps;">MoonShineP</span> controls LEDs for recreating realistic moonlight, twilight, and sunlight regimes in a laboratory setting. A light regime can be freely edited, making it ideal for experiments requiring a specific lighting scenario. <span style="font-variant:small-caps;">MoonShineP</span> runs a Python program on the Linux operating system of a Raspberry Pi computer to control an array of LEDs. Every minute, the Python program reads the light schedule (generated by <span style="font-variant:small-caps;">MoonShineR</span>: schedulers) to refresh the LED intensities. Users can run a moonlight schedule as well as a sunlight and twilight schedule simultaneously on the Raspberry Pi. In this way, the Raspberry Pi can separately control two arrays of LED strips, so as to fully re-create all three major sources of natural light, around the clock (see concept in {numref}`map`).
 
 ```{figure} /images/map.png
 :name: map
@@ -45,8 +52,8 @@ A flowchart of how <span style="font-variant:small-caps;">MoonShineP</span> work
 - Column names are also indicated in italics with single quote marks, for example, '_datetime_'.
 - R code, Python code, or terminal commands are shown in boxes. For example,
     ```
-    this is a line of code
+    a line of code
     ```
 - Internal hyperlinks within this documents & links to external websites are indicated in blue text.
 
-#### Manual last updated Feb 1, 2024
+#### Manual last updated Oct 23, 2026

@@ -16,20 +16,20 @@ kernelspec:
 (content:edit)=
 # 4. Edit LED schedule `.csv`
 
-- One of the most powerful features of _<span style="font-variant:small-caps;">MoonShineP</span>_ is that the user can create any light scenario by editing the `LED_schedule_moon.csv` or `LED_schedule_sun.csv`.
+- One of the most powerful features of <span style="font-variant:small-caps;">MoonShineP</span> is that the user can create any light scenario by editing the `LED_schedule_moon.csv` or `LED_schedule_sun.csv`.
 
-- While _<span style="font-variant:small-caps;">MoonShineR</span>_ is optimized for recreating realistic illuminance (by running the `LED_schedule_moon.csv` or `LED_schedule_sun.csv` directly from _<span style="font-variant:small-caps;">MoonShineR</span>: Schedulers_), we expect that many experiments utilizing _<span style="font-variant:small-caps;">MoonShineP</span>_ will require a manipulated light regime (e.g., remove a full moon night from the lunar cycle) or a purposefully standardized regime (e.g., same sunrise/set times every day).
+- While <span style="font-variant:small-caps;">MoonShineR</span> is optimized for recreating realistic illuminance (by running the `LED_schedule_moon.csv` or `LED_schedule_sun.csv` directly from <span style="font-variant:small-caps;">MoonShineR</span>: Schedulers), we expect that many experiments utilizing <span style="font-variant:small-caps;">MoonShineP</span> will require a manipulated light regime (e.g., remove a full moon night from the lunar cycle) or a purposefully standardized regime (e.g., same sunrise/set times every day).
 
 
     ```{note}
-    _<span style="font-variant:small-caps;">MoonShineP</span>_ works by finding a matching date/time in the schedule `.csv` to the current Raspberry Pi system time. This makes re-creating the moonlight schedule at the current moment straightforward; the user simply needs to enter the current time in _<span style="font-variant:small-caps;">MoonShineR</span>: Schedulers_ to generate such a schedule `.csv`. However, this means that if the user wishes to re-create a moonlight cycle in the past or future, the schedule `.csv` is required to have LED intensity values predicted for the desired time in the past of future, but a datetime that matches the current system time. Instructions for doing so are probided below, in creating a simulation for a past or future date.
+    <span style="font-variant:small-caps;">MoonShineP</span> works by finding a matching date/time in the schedule `.csv` to the current Raspberry Pi system time. This makes re-creating the moonlight schedule at the current moment straightforward; the user simply needs to enter the current time in <span style="font-variant:small-caps;">MoonShineR</span>: Schedulers to generate such a schedule `.csv`. However, this means that if the user wishes to re-create a moonlight cycle in the past or future, the schedule `.csv` is required to have LED intensity values predicted for the desired time in the past of future, but a datetime that matches the current system time. Instructions for doing so are probided below, in creating a simulation for a past or future date.
     ```
 
 ## Creating customized schedules
 
-- To create a customized schedule `.csv`, the user can either modify an existing _<span style="font-variant:small-caps;">MoonShineR</span>_ generated schedule `.csv` using Excel (See Option 1, below). Alternatively, the user can create the customized schedule manually, using the provided Excel spreadsheet template (`manual_scheduler.xlsx`) (See Option 2, below). The user can also combine both approaches to a create a customized `LED_schedule .csv`, because the methods are better suited for different scenarios.
+- To create a customized schedule `.csv`, the user can either modify an existing <span style="font-variant:small-caps;">MoonShineR</span> generated schedule `.csv` using Excel (See Option 1, below). Alternatively, the user can create the customized schedule manually, using the provided Excel spreadsheet template (`manual_scheduler.xlsx`) (See Option 2, below). The user can also combine both approaches to a create a customized `LED_schedule .csv`, because the methods are better suited for different scenarios.
 
-- _<span style="font-variant:small-caps;">MoonShineP</span>_ can run any schedule `.csv` when the following conditions are met:
+- <span style="font-variant:small-caps;">MoonShineP</span> can run any schedule `.csv` when the following conditions are met:
     - The .csv file contains the nine required columns, as described below (extra columns with other headers can be present, but will be ignored):
         - The first column is '_datetime_' in YYYY-MM-DD hh:mm:ss format (see {numref}`original_datetime`)(and the user must also make sure that the schedule starts before the intended launch time, see {ref}`content:launch`).
         - The next eight columns are the For the eight RGBW LED values, i.e., 'crude' and 'fine' settings for each of white, read green, and blue. These are labeled '_crudewhite_', '_wfine_', '_crudered_', '_rfine_', '_crudegreen_', '_gfine_', '_crudeblue_', '_bfine_' (see {numref}`moon_table`). The user must ensure that:
@@ -64,7 +64,7 @@ Copy and paste the LED intensity from one row to other rows at different times. 
     
 ##### To re-create a moonlight cycle in the past or future:
 
-1. Generate a schedule `.csv` in _<span style="font-variant:small-caps;">MoonShineR</span>: Schedulers_ with the desired settings and with a start time in the past or future.
+1. Generate a schedule `.csv` in <span style="font-variant:small-caps;">MoonShineR</span>: Schedulers with the desired settings and with a start time in the past or future.
 2. The generated schedule `.csv` will have the correct LED intensity values but a date/time that can not be launched immediately as the date is not current.
 3. Therefore, the user would replace the starting date/time of the re-created illumination schedule (from a past or future date) with the current date/time for the moonlight re-creation. To do so:
     - Delete all the original entries in the '_datetime_' column except for the first two rows.
@@ -84,7 +84,7 @@ Copy and paste the LED intensity from one row to other rows at different times. 
 The correct date/time format when opened with a text editor.
 ```
 
-- However, when the same schedule `.csv` is opened in Excel, the date/time will automatically reformat to the Excel's default format (this default format may depends on the user's computer's country setting). If the user then saves the schedule `.csv`  in Excel, the date/time will be saved in an erroneous format that _<span style="font-variant:small-caps;">MoonShineP</span>_ will not recognize.
+- However, when the same schedule `.csv` is opened in Excel, the date/time will automatically reformat to the Excel's default format (this default format may depends on the user's computer's country setting). If the user then saves the schedule `.csv`  in Excel, the date/time will be saved in an erroneous format that <span style="font-variant:small-caps;">MoonShineP</span> will not recognize.
 
 ```{figure} /images/excel_datetime.png
 :name: excel_datetime
@@ -122,7 +122,7 @@ The layout of `manual_scheduler.xlsx`. '_datetime_' (red box), '_desired illumin
 ```{figure} /images/manualexp.jpg
 :name: manualexp
 
-A second example of a manual schedule showing only the preview plot. The desired illuminance list consists of a natural exponent function at the start and end of the sequence, and a plateau of illuminance in the center. The LED intensity values are calculated automatically based on the desired illuminance list. _<span style="font-variant:small-caps;">MoonShineP</span>_ will convert these values into accurate illumination in the room.
+A second example of a manual schedule showing only the preview plot. The desired illuminance list consists of a natural exponent function at the start and end of the sequence, and a plateau of illuminance in the center. The LED intensity values are calculated automatically based on the desired illuminance list. <span style="font-variant:small-caps;">MoonShineP</span> will convert these values into accurate illumination in the room.
 ```
 
 1. Set the LED settings in the upper right panel ({numref}`manualexcel`). The theoretical_max is the calibration illuminance, see {ref}`content:lightbox:calibration`.
@@ -131,9 +131,9 @@ A second example of a manual schedule showing only the preview plot. The desired
 4. The LED intensity values (crude and fine) will be updated automatically.
 5. Save this `.xlsx` file first because this will preserve the formatting (graph and equations).
 6. Then save this file as a separate `.csv` file, using "save as".
-7. Rename this newly created `.csv` file to `LED_schedule_moon.csv` or `LED_schedule_sun.csv` depending on what the user is re-creating in _<span style="font-variant:small-caps;">MoonShineP</span>_.
-8. Open this `.csv` file in Excel to correct the '_datetime_' into the correct format for _<span style="font-variant:small-caps;">MoonShineP</span>_, as described above.
+7. Rename this newly created `.csv` file to `LED_schedule_moon.csv` or `LED_schedule_sun.csv` depending on what the user is re-creating in <span style="font-variant:small-caps;">MoonShineP</span>.
+8. Open this `.csv` file in Excel to correct the '_datetime_' into the correct format for <span style="font-variant:small-caps;">MoonShineP</span>, as described above.
 9. Remove the unnecessary columns (i.e., column L and beyond).
 10. Save changes.
-11. The user can run this finalized `.csv` with _<span style="font-variant:small-caps;">MoonShineP</span>_, or append it to an existing schedule `.csv` by matching the corresponding columns.
+11. The user can run this finalized `.csv` with <span style="font-variant:small-caps;">MoonShineP</span>, or append it to an existing schedule `.csv` by matching the corresponding columns.
 
