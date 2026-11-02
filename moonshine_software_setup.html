@@ -542,6 +542,13 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="mf">3.9.9</span><span class="o">/</span><span class="n">Python</span><span class="o">-</span><span class="mf">3.9.9</span><span class="o">.</span><span class="n">tgz</span>
 </pre></div>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you recieve <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">certificate</span> <span class="pre">of</span> <span class="pre">'www\.python.org'</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">trusted</span></code> after running the above line, resolve it by running:
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code>
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">--reinstall</span> <span class="pre">ca-certificates</span></code>
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">update-ca-certificates</span></code></p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">zxvf</span> <span class="n">Python</span><span class="o">-</span><span class="mf">3.9.9</span><span class="o">.</span><span class="n">tgz</span>
 </pre></div>
 </div>
@@ -582,7 +589,7 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">git</span> <span class="n">scons</span> <span class="n">swig</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">git</span> <span class="n">scons</span> <span class="n">swig</span>
 </pre></div>
 </div>
 </li>
@@ -600,7 +607,7 @@ title="Print to PDF"
 <li><p>Then save file with CTRL + O.</p></li>
 <li><p>And close the editor with CTRL + X.</p></li>
 <li><p>We also need to edit another file. To do so, enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">firmware</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 </li>
@@ -635,7 +642,7 @@ title="Print to PDF"
 <li><p>Next, modify the following lines to specify using the SK6812 protocol:</p>
 <ul class="simple">
 <li><p>Using the file explorer, open the <code class="docutils literal notranslate"><span class="pre">main.c</span></code> file found in <em>/home/pi/rpi_ws281x/</em></p></li>
-<li><p>The line of “STRIP_TYPE  WS2811_STRIP_RGB” is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.</p></li>
+<li><p>The line of “STRIP_TYPE  WS2811_STRIP_GBR” is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.</p></li>
 <li><p>Instead, turn on the line of “STRIP_TYPE  SK6812_STRIP_RGBW” (should be line 64) for SK6812 by deleting the // at the beginning of the line.</p></li>
 <li><p>On the line beginning with <em>‘define HEIGHT’</em> (should be line 67) edit the number to 1.</p></li>
 <li><p>The value of the line beginning with <em>‘define WIDTH’</em> is unimportant and should be left at its default (should be line 66). This is because it is expected that the user will use a different number of LED strips for the moonlight array (two LED strip should suffice) and sunlight/twilight array (likely need more than two LED strips). The different number of LEDs being used for the two arrays are specified in the python file <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>, detailed later.</p></li>
@@ -665,38 +672,37 @@ title="Print to PDF"
 </section>
 <section id="setup-real-time-clock-rtc-and-time">
 <h2>Setup real time clock (RTC) and time<a class="headerlink" href="#setup-real-time-clock-rtc-and-time" title="Permalink to this headline">#</a></h2>
-<p>A real time clock module is optional but recommended. We recommend that the user runs the Raspberry Pi offline, and instead uses the RTC to keep time. This is because when the Raspberry Pi is online it will automatically update to the local time. This may use daylight saving time, DST, which can be troublesome. The RTC is also essential if the Raspberry Pi is used in a location with no internet connection.</p>
+<p>A real-time clock (RTC) module is recommended for MoonShineP, especially when operating without internet access. The RTC maintains time during power outages. We recommend disabling automatic internet time synchronization and using a fixed timezone without daylight saving time (DST) to ensure that the Raspberry Pi’s clock remains consistent with the MoonShineR-generated schedules.</p>
 <ol>
 <li><p>Install RTC module DS3231 as described in <a class="reference internal" href="moonshine_hardware_setup.html#content-hardware-assemble"><span class="std std-ref">Assemble Raspberry Pi and LED strips</span></a>.</p></li>
 <li><p>On the task bar of the main Linux window of Raspberry Pi, go to the Start menu (top left button) and enable the RTC module by selecting the following options: &gt; Preferences &gt; Raspberry Pi Configuration &gt; Interfaces &gt; I2C <strong>Enable</strong> &gt; OK</p></li>
-<li><p>Install RTC configurations (see video reference: <a class="reference external" href="https://www.youtube.com/watch?v=MxUbqotDBnM">Real Time Clock Script for Raspberry Pi</a>, and this online tutorial: <a class="reference external" href="https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/RTC_install_webpage.pdf">Adding a Real Rime Clock to your Raspberry Pi</a>)</p>
-<ul class="simple">
-<li><p>In terminal enter:</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">km4ack</span><span class="o">/</span><span class="n">pi</span><span class="o">-</span><span class="n">scripts</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">rtc</span> <span class="o">&amp;&amp;</span> <span class="n">bash</span> <span class="n">rtc</span>
+<li><p>Open the Raspberry Pi configuration file, in terminal enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">firmware</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>When the terminal returns: “Is the time above correct?”, respond accordingly (Y/N).</p></li>
-<li><p>When the terminal returns: “Do you see 68 in the info listed above?”, respond accordingly (Y/N). (Note to user: you may see UU instead of 68)</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This rtc installation works for both DS 1307 or DS 3231 RTC chips</p>
-</div>
 </li>
-<li><p>Turn off DST by setting the time zone to UTC. In terminal, enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">raspi</span><span class="o">-</span><span class="n">config</span>
+<li><p>Add the following lines under <code class="docutils literal notranslate"><span class="pre">[all]</span></code>, and save the file by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code>, Enter, then <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtparam</span><span class="o">=</span><span class="n">rtc</span><span class="o">=</span><span class="n">off</span> <span class="c1">#This line is only required for Pi 5. Older models do not need this line.</span>
+<span class="n">dtoverlay</span><span class="o">=</span><span class="n">i2c</span><span class="o">-</span><span class="n">rtc</span><span class="p">,</span><span class="n">ds3231</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Select option 5 <strong>Internationalization Options</strong></p></li>
-<li><p>Select 12 <strong>Change Time Zone</strong></p></li>
-<li><p>At the bottom select <strong>None of the above</strong></p></li>
-<li><p>Select <strong>UTC</strong> and OK</p></li>
-</ul>
 </li>
-<li><p>Change Raspberry Pi’s clock to the user’s current time (without DST, even if the user is currently experiencing DST), by entering into the terminal terminal:</p>
+<li><p>Reboot Pi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
+</pre></div>
+</div>
+</li>
+<li><p>Disables automatic network time synchronization when connected to the internet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">timedatectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">ntp</span> <span class="n">false</span>
+</pre></div>
+</div>
+</li>
+<li><p>Set a fixed EST timezone without DST:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">timedatectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">timezone</span> <span class="n">Etc</span><span class="o">/</span><span class="n">GMT</span><span class="o">+</span><span class="mi">5</span>
+</pre></div>
+</div>
+</li>
+<li><p>Set the Raspberry Pi’s system clock to the current local standard time (without daylight saving time, even if DST is currently in effect) by entering the following command in the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">date</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;YYYY-MM-DD hh:mm:ss&#39;</span>
 </pre></div>
 </div>
@@ -711,11 +717,25 @@ title="Print to PDF"
 </li>
 <li><p>To check if RTC is working, enter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">-</span><span class="n">rv</span>
+<span class="n">timedatectl</span>
+<span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">rtc</span><span class="o">/</span><span class="n">rtc0</span><span class="o">/</span><span class="n">name</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>The RTC time will be reported.</p></li>
 </ul>
+</li>
+<li><p>Test whether the RTC maintains time after a power outage:</p>
+<ul class="simple">
+<li><p>Disconnect the Raspberry Pi from the internet and shut it down.</p></li>
+<li><p>Once the Raspberry Pi has shut down, disconnect its power supply for at least 5 minutes.</p></li>
+<li><p>Reconnect the power supply and allow the Raspberry Pi to boot up, without connecting to the internet.</p></li>
+<li><p>Check the system time and RTC time by entering:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">timedatectl</span>
+<span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">-</span><span class="n">rvs</span>
+</pre></div>
+</div>
 </li>
 </ol>
 </section>

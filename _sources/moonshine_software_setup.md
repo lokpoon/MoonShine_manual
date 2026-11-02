@@ -43,7 +43,12 @@ kernelspec:
     ```
     wget https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz
     ```
-
+    ```{attention}
+    If you recieve `The certificate of 'www\.python.org' is not trusted` after running the above line, resolve it by running:
+    `sudo apt update`
+    `sudo apt install --reinstall ca-certificates`
+    `sudo update-ca-certificates`
+    ```
     ```
     tar -zxvf Python-3.9.9.tgz
     ```
@@ -95,7 +100,7 @@ kernelspec:
         ```
    
         ```
-        sudo apt-get install gcc make build-essential python-dev git scons swig
+        sudo apt-get install gcc make build-essential python3-dev git scons swig
         ```
    - Confirm with Y
    
@@ -118,7 +123,7 @@ kernelspec:
    - We also need to edit another file. To do so, enter:
      
      ```
-     sudo nano /boot/config.txt
+     sudo nano /boot/firmware/config.txt
      ```
      
    - When the editor is opened, comment out the following line with a # at the beginning:
@@ -156,7 +161,7 @@ kernelspec:
     
     - Using the file explorer, open the `main.c` file found in */home/pi/rpi_ws281x/*
     
-    - The line of "STRIP_TYPE  WS2811_STRIP_RGB" is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.
+    - The line of "STRIP_TYPE  WS2811_STRIP_GBR" is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.
     
     - Instead, turn on the line of "STRIP_TYPE  SK6812_STRIP_RGBW" (should be line 64) for SK6812 by deleting the // at the beginning of the line.
     
@@ -195,47 +200,65 @@ kernelspec:
 
 ## Setup real time clock (RTC) and time
 
-A real time clock module is optional but recommended. We recommend that the user runs the Raspberry Pi offline, and instead uses the RTC to keep time. This is because when the Raspberry Pi is online it will automatically update to the local time. This may use daylight saving time, DST, which can be troublesome. The RTC is also essential if the Raspberry Pi is used in a location with no internet connection.
+A real-time clock (RTC) module is recommended for MoonShineP, especially when operating without internet access. The RTC maintains time during power outages. We recommend disabling automatic internet time synchronization and using a fixed timezone without daylight saving time (DST) to ensure that the Raspberry Pi's clock remains consistent with the MoonShineR-generated schedules.
 
 1. Install RTC module DS3231 as described in {ref}`content:hardware:assemble`.
 
 2. On the task bar of the main Linux window of Raspberry Pi, go to the Start menu (top left button) and enable the RTC module by selecting the following options: > Preferences > Raspberry Pi Configuration > Interfaces > I2C **Enable** > OK
 
-3. Install RTC configurations (see video reference: [Real Time Clock Script for Raspberry Pi](https://www.youtube.com/watch?v=MxUbqotDBnM), and this online tutorial: [Adding a Real Rime Clock to your Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/RTC_install_webpage.pdf))
-    - In terminal enter:
+3. Open the Raspberry Pi configuration file, in terminal enter:
     ```
-    wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/rtc && bash rtc
+    sudo nano /boot/firmware/config.txt
     ```
-    - When the terminal returns: "Is the time above correct?", respond accordingly (Y/N).
-    - When the terminal returns: "Do you see 68 in the info listed above?", respond accordingly (Y/N). (Note to user: you may see UU instead of 68)
-    ```{note}
-    This rtc installation works for both DS 1307 or DS 3231 RTC chips
+4. Add the following lines under `[all]`, and save the file by pressing `Ctrl+O`, Enter, then `Ctrl+X`:
     ```
-4. Turn off DST by setting the time zone to UTC. In terminal, enter:
+    dtparam=rtc=off #This line is only required for Pi 5. Older models do not need this line.
+    dtoverlay=i2c-rtc,ds3231
     ```
-    sudo raspi-config
+    
+5. Reboot Pi:
     ```
-    - Select option 5 **Internationalization Options**
-    - Select 12 **Change Time Zone**
-    - At the bottom select **None of the above**
-    - Select **UTC** and OK
+    sudo reboot
+    ```
 
-5. Change Raspberry Pi's clock to the user's current time (without DST, even if the user is currently experiencing DST), by entering into the terminal terminal:
+6. Disables automatic network time synchronization when connected to the internet:
+
+    ```
+    sudo timedatectl set-ntp false
+    ```
+7. Set a fixed EST timezone without DST:
+    ```
+    sudo timedatectl set-timezone Etc/GMT+5
+    ```
+8.  Set the Raspberry Pi's system clock to the current local standard time (without daylight saving time, even if DST is currently in effect) by entering the following command in the terminal:
     ```
     sudo date -s 'YYYY-MM-DD hh:mm:ss'
     ```
     - Change the above to the user's current time, for example '2022-01-01 01:01:00'.
 
-6. Copy the time from the Raspberry Pi system to the Hardware RTC by entering:
+9. Copy the time from the Raspberry Pi system to the Hardware RTC by entering:
     ```
     sudo hwclock -w
     ```
-7. To check if RTC is working, enter:
+10. To check if RTC is working, enter:
     ```
     sudo hwclock -rv
+    timedatectl
+    cat /sys/class/rtc/rtc0/name
     ```
     - The RTC time will be reported.
 
+11. Test whether the RTC maintains time after a power outage:
+
+    - Disconnect the Raspberry Pi from the internet and shut it down.
+    - Once the Raspberry Pi has shut down, disconnect its power supply for at least 5 minutes.
+    - Reconnect the power supply and allow the Raspberry Pi to boot up, without connecting to the internet.
+    - Check the system time and RTC time by entering:
+
+    ```
+    timedatectl
+    sudo hwclock -rvs
+    ```
 
 (content:lightbox:lednumber2)=    
 ## Desktop folders
