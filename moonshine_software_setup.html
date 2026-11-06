@@ -436,11 +436,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setting-up-systemd-service">
-   Setting up systemd service
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setting-led-numbers-in-moonshine-moon-py-and-moonshine-sun-py">
    Setting LED numbers in
    <code class="docutils literal notranslate">
@@ -454,6 +449,11 @@ title="Print to PDF"
      moonshine_sun.py
     </span>
    </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-up-systemd-service">
+   Setting up systemd service
   </a>
  </li>
 </ul>
@@ -491,11 +491,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setting-up-systemd-service">
-   Setting up systemd service
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setting-led-numbers-in-moonshine-moon-py-and-moonshine-sun-py">
    Setting LED numbers in
    <code class="docutils literal notranslate">
@@ -511,6 +506,11 @@ title="Print to PDF"
    </code>
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-up-systemd-service">
+   Setting up systemd service
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -523,322 +523,280 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="span-style-font-variant-small-caps-moonshinep-span-software-setup">
 <span id="content-lightbox-software"></span><h1>6. <span style="font-variant:small-caps;">MoonShineP</span>: Software setup<a class="headerlink" href="#span-style-font-variant-small-caps-moonshinep-span-software-setup" title="Permalink to this headline">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Compatibility Note: As of November 2026.</strong> MoonShineP was tested successfully on <strong>Raspberry Pi 4</strong> running <strong>Python 3.11.2</strong> (pre-installed version of Python with the OS), and relying on the system-installed <code class="docutils literal notranslate"><span class="pre">rpi-ws281x</span></code> Python package latest version 5.0.0. This chapter uses <strong>Raspberry Pi OS (Legacy, 32-bit)</strong> as the installation target; at the time of the test the Raspberry Pi OS Legacy release is <strong>Debian 12 (Bookworm)</strong>.</p>
+<p><strong>Hardware Note:</strong> MoonShineP works best on <strong>Raspberry Pi 4 Model B</strong>, and should also work on the previous generation Pi 3 B. Raspberry Pi 5 uses a different GPIO architecture and as of November 2026, is not fully supported by the required <code class="docutils literal notranslate"><span class="pre">rpi-ws281x</span></code> Python package. The Raspberry Pi 4 Model B is expected to remain in production until at least 2034.</p>
+</div>
 <section id="setting-up-a-new-raspberry-pi">
 <span id="content-lightbox-lednumber"></span><h2>Setting up a new Raspberry Pi<a class="headerlink" href="#setting-up-a-new-raspberry-pi" title="Permalink to this headline">#</a></h2>
 <ol>
-<li><p>On a computer go to the Raspberry Pi website <a class="reference external" href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a> to download and install the Raspberry Pi Imager.</p></li>
-<li><p>In the Raspberry Pi Imager, install <strong>Raspberry Pi OS (Legacy)</strong> on the micro SD card.</p></li>
-<li><p>Connect the monitor, keyboard, and mouse to the Raspberry Pi.</p></li>
-<li><p>Insert the micro SD card into the Raspberry Pi.</p></li>
-<li><p>Connect power to the Raspberry Pi to boot it up.</p></li>
-<li><p>Follow the instructions in the setup pages. Connect to the internet, and perform the prompted update on first launch. Note down the username and password that are utilized.</p></li>
-<li><p>Install Python 3.9.9.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>MoonShineP DOES NOT SUPPORT OTHER VERSIONS OF PYTHON</p>
-</div>
-<p>Reference: <a class="reference external" href="https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/update_python_webpage.pdf">How to Update Python on Raspberry Pi</a></p>
-<p>Enter the following sequence of commands in the terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ftp</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="mf">3.9.9</span><span class="o">/</span><span class="n">Python</span><span class="o">-</span><span class="mf">3.9.9</span><span class="o">.</span><span class="n">tgz</span>
-</pre></div>
-</div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>If you recieve <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">certificate</span> <span class="pre">of</span> <span class="pre">'www\.python.org'</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">trusted</span></code> after running the above line, resolve it by running:
-<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code>
-<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">--reinstall</span> <span class="pre">ca-certificates</span></code>
-<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">update-ca-certificates</span></code></p>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">zxvf</span> <span class="n">Python</span><span class="o">-</span><span class="mf">3.9.9</span><span class="o">.</span><span class="n">tgz</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Python</span><span class="o">-</span><span class="mf">3.9.9</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">configure</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">optimizations</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">altinstall</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">rm</span> <span class="n">python</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span> <span class="n">python</span>
-</pre></div>
-</div>
-</li>
-<li><p>Check Python version is version (3.9.9) by entering:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>It must be Python 3.9.9</p>
-</div>
-</li>
-<li><p>Reboot the Raspberry Pi.</p></li>
-<li><p>Modify the Raspberry Pi to run the ws2811 library.</p></li>
-</ol>
-<p>Reference: <a class="reference external" href="https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/LED_strip_setup.pdf">Connect and Control WS2812 RGB LED Strips via Raspberry Pi</a></p>
-<ul>
-<li><p>In terminal, enter the following sequence of commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">git</span> <span class="n">scons</span> <span class="n">swig</span>
-</pre></div>
-</div>
-</li>
-<li><p>Confirm with Y</p></li>
-<li><p>This following command line will open a file editor. To deactivate audio output, edit the <code class="docutils literal notranslate"><span class="pre">.conf</span></code> file by entering the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">modprobe</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">snd</span><span class="o">-</span><span class="n">blacklist</span><span class="o">.</span><span class="n">conf</span>
-</pre></div>
-</div>
-</li>
-<li><p>A new terminal window will open. In this window add the following line text:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">blacklist</span> <span class="n">snd_bcm2835</span>
-</pre></div>
-</div>
-</li>
-<li><p>Then save file with CTRL + O.</p></li>
-<li><p>And close the editor with CTRL + X.</p></li>
-<li><p>We also need to edit another file. To do so, enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">firmware</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-</li>
-<li><p>When the editor is opened, comment out the following line with a # at the beginning:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtparam</span><span class="o">=</span><span class="n">audio</span><span class="o">=</span><span class="n">on</span>
-</pre></div>
-</div>
-<p>i.e.,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#dtparam=audio=on</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Then save file with CTRL + O.</p></li>
-<li><p>And close the editor with CTRL + X.</p></li>
-</ul>
-</li>
-<li><p>Reboot the Raspberry Pi by entering:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
-</pre></div>
-</div>
-</li>
-</ul>
-<ol>
-<li><p>Download rpi_ws281x library by entering:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jgarff</span><span class="o">/</span><span class="n">rpi_ws281x</span>
-</pre></div>
-</div>
-</li>
-<li><p>Next, modify the following lines to specify using the SK6812 protocol:</p>
-<ul class="simple">
-<li><p>Using the file explorer, open the <code class="docutils literal notranslate"><span class="pre">main.c</span></code> file found in <em>/home/pi/rpi_ws281x/</em></p></li>
-<li><p>The line of “STRIP_TYPE  WS2811_STRIP_GBR” is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.</p></li>
-<li><p>Instead, turn on the line of “STRIP_TYPE  SK6812_STRIP_RGBW” (should be line 64) for SK6812 by deleting the // at the beginning of the line.</p></li>
-<li><p>On the line beginning with <em>‘define HEIGHT’</em> (should be line 67) edit the number to 1.</p></li>
-<li><p>The value of the line beginning with <em>‘define WIDTH’</em> is unimportant and should be left at its default (should be line 66). This is because it is expected that the user will use a different number of LED strips for the moonlight array (two LED strip should suffice) and sunlight/twilight array (likely need more than two LED strips). The different number of LEDs being used for the two arrays are specified in the python file <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>, detailed later.</p></li>
-<li><p>Save file.</p></li>
-</ul>
-<figure class="align-default" id="mainc">
-<img alt="_images/mainc.png" src="_images/mainc.png" />
+<li><p>On a computer, download and install <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>.</p></li>
+<li><p>Insert the microSD card into the computer for loading the OS.</p></li>
+<li><p>Select <strong>Raspberry Pi 4</strong> (or Pi 3 if that is what you are using) as the model.</p></li>
+<li><p>Select <strong>Raspberry Pi OS (Legacy, 32-bit)</strong>. As of November 2026, this is based on <strong>Debian 12 (Bookworm)</strong>.</p>
+<figure class="align-default" id="schematic">
+<img alt="_images/os.jpg" src="_images/os.jpg" />
 <figcaption>
-<p><span class="caption-number">Fig. 34 </span><span class="caption-text">The configuration of the <code class="docutils literal notranslate"><span class="pre">main.c</span></code> file.</span><a class="headerlink" href="#mainc" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Select Raspberry Pi OS (Legacy, 32-bit).</span><a class="headerlink" href="#schematic" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
-<li><p>Next, compile the library for Python.</p>
-<p>In terminal, enter the following commands:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">rpi_ws281x</span><span class="o">/</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">scons</span>
+<li><p>It is very important to set the username to <code class="docutils literal notranslate"><span class="pre">pi</span></code> in the Imager’s <strong>OS Customisation</strong> / <strong>User</strong> settings. The user then chooses their own password. The supplied MoonShineP Python scripts and systemd examples contain absolute paths beginning with <code class="docutils literal notranslate"><span class="pre">/home/pi/</span></code>. Using another username is possible, but then <strong>all</strong> <code class="docutils literal notranslate"><span class="pre">/home/pi/</span></code> paths in the Python scripts and service files must be updated.</p>
+<figure class="align-default" id="moonshine-username-choice">
+<img alt="_images/username.jpg" src="_images/username.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Enter <code class="docutils literal notranslate"><span class="pre">pi</span></code> as the username to match the paths in the supplied scripts.</span><a class="headerlink" href="#moonshine-username-choice" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Skip or complete any other required settings, then write the OS image to the microSD card. If you skip customisation, create the username <code class="docutils literal notranslate"><span class="pre">pi</span></code> when prompted at first boot; the OS does not automatically use <code class="docutils literal notranslate"><span class="pre">pi</span></code> as its default username.</p></li>
+<li><p>When writing is complete, insert the microSD card into the Raspberry Pi. Connect power, monitor, mouse, and keyboard, then boot the Pi.</p></li>
+<li><p><strong>Check the installed OS and Python versions.</strong> Python is already included in Raspberry Pi OS. At the time of November 2026, Raspberry Pi OS (Legacy, 32-bit) Python 3.11.2, which works properly with MoonShineP</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/os-release
+dpkg<span class="w"> </span>--print-architecture
+/usr/bin/python3<span class="w"> </span>--version
 </pre></div>
 </div>
 </li>
-<li><p>Now the Raspberry Pi should be ready to control the SK6812 LED strips.</p></li>
+<li><p><strong>Install the Python library that controls the SK6812 LEDs.</strong> Connect the Pi to the internet for this step, then enter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip<span class="w"> </span>python3-dev<span class="w"> </span>build-essential<span class="w"> </span>swig
+sudo<span class="w"> </span>/usr/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span><span class="s1">&#39;rpi-ws281x==5.0.0&#39;</span>
+</pre></div>
+</div>
+<p>Enter Y when prompted for the installation.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>On Raspberry Pi OS Bookworm, <code class="docutils literal notranslate"><span class="pre">pip</span></code> normally prevents installations into the system Python environment. The <code class="docutils literal notranslate"><span class="pre">--break-system-packages</span></code> option deliberately overrides that protection. It is included here to allow a working <strong>system-Python</strong> setup on the dedicated MoonShineP Pi, and it carries a risk of conflicts with OS-managed Python packages. For general-purpose Raspberry Pis, a Python virtual environment is preferable; its interpreter path would also need to be used in the systemd service.</p>
+</div>
+<p>Check that Python can import the <code class="docutils literal notranslate"><span class="pre">rpi_ws281x</span></code> module, and record its actual version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/usr/bin/python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import rpi_ws281x; print(&#39;Success&#39;)&quot;</span>
+/usr/bin/python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>rpi-ws281x
+</pre></div>
+</div>
+<p>The first command should print <code class="docutils literal notranslate"><span class="pre">Success</span></code>; the second should show <code class="docutils literal notranslate"><span class="pre">Version:</span> <span class="pre">5.0.0</span></code> for the installation. <code class="docutils literal notranslate"><span class="pre">Version:</span> <span class="pre">5.0.0</span></code> of rpi_ws281x has been tested to work, so it is best to keep the version specification instead of installing the latest update.</p>
+</li>
+<li><p>The Pi now has the required Python LED-control library installed. Continue with the RTC, folder, LED-count, and systemd configuration below before running MoonShineP.</p></li>
 </ol>
 </section>
 <section id="setup-real-time-clock-rtc-and-time">
 <h2>Setup real time clock (RTC) and time<a class="headerlink" href="#setup-real-time-clock-rtc-and-time" title="Permalink to this headline">#</a></h2>
-<p>A real-time clock (RTC) module is recommended for MoonShineP, especially when operating without internet access. The RTC maintains time during power outages. We recommend disabling automatic internet time synchronization and using a fixed timezone without daylight saving time (DST) to ensure that the Raspberry Pi’s clock remains consistent with the MoonShineR-generated schedules.</p>
+<p>A real-time clock (RTC) is recommended for MoonShineP when operating without internet access. On a <strong>Raspberry Pi 4</strong>, an external <strong>DS3231</strong> module with a working backup battery can maintain time during power outages. Disable automatic internet time synchronisation if the experimental schedule must not be adjusted by network time updates, or run the system offline (recommended).</p>
 <ol>
-<li><p>Install RTC module DS3231 as described in <a class="reference internal" href="moonshine_hardware_setup.html#content-hardware-assemble"><span class="std std-ref">Assemble Raspberry Pi and LED strips</span></a>.</p></li>
-<li><p>On the task bar of the main Linux window of Raspberry Pi, go to the Start menu (top left button) and enable the RTC module by selecting the following options: &gt; Preferences &gt; Raspberry Pi Configuration &gt; Interfaces &gt; I2C <strong>Enable</strong> &gt; OK</p></li>
-<li><p>Open the Raspberry Pi configuration file, in terminal enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">firmware</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">txt</span>
+<li><p>Connect the DS3231 RTC module as described in <a class="reference internal" href="moonshine_hardware_setup.html#content-hardware-assemble"><span class="std std-ref">Assemble Raspberry Pi and LED strips</span></a>.</p></li>
+<li><p>Enable I2C using the Raspberry Pi configuration utility:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>raspi-config
+</pre></div>
+</div>
+<p>Select <strong>Interface Options &gt; I2C &gt; Enable</strong>, then exit. (The menu numbering can differ among OS versions.)</p>
+</li>
+<li><p>Open the boot configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
+</pre></div>
+</div>
+<p>Add two new lines at the top:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">dtoverlay</span><span class="o">=</span><span class="s">i2c-rtc,ds3231</span>
+</pre></div>
+</div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">dtparam</span><span class="o">=</span><span class="s">audio=off</span>
+</pre></div>
+</div>
+<p>If the line <code class="docutils literal notranslate"><span class="pre">dtparam=audio=on</span></code> alreay exists within the config.txt, delete it.</p>
+<p>Save with <code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code>, Enter, and exit with <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>.</p>
+</li>
+<li><p>Reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
 </li>
-<li><p>Add the following lines under <code class="docutils literal notranslate"><span class="pre">[all]</span></code>, and save the file by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code>, Enter, then <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtparam</span><span class="o">=</span><span class="n">rtc</span><span class="o">=</span><span class="n">off</span> <span class="c1">#This line is only required for Pi 5. Older models do not need this line.</span>
-<span class="n">dtoverlay</span><span class="o">=</span><span class="n">i2c</span><span class="o">-</span><span class="n">rtc</span><span class="p">,</span><span class="n">ds3231</span>
+<li><p><strong>Verify that the RTC was detected.</strong> Enter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/dev/rtc*
+<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/class/rtc/rtc*/name<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">: </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<p>Identify the RTC device associated with the DS3231; on a Pi 4 with one RTC, it is typically <code class="docutils literal notranslate"><span class="pre">/dev/rtc0</span></code>. If more than one RTC exists, specify the correct one in <code class="docutils literal notranslate"><span class="pre">hwclock</span></code> commands with <code class="docutils literal notranslate"><span class="pre">--rtc</span> <span class="pre">/dev/rtcN</span></code>. If the module is not detected, check wiring, I2C enablement, and the device-tree overlay before setting time.</p>
+</li>
+<li><p>Disable automatic network time synchronisation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>timedatectl<span class="w"> </span>set-ntp<span class="w"> </span><span class="nb">false</span>
 </pre></div>
 </div>
 </li>
-<li><p>Reboot Pi:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
+<li><p>Set a fixed time zone without daylight saving time. For example, for <strong>EST (UTC-05:00) all year</strong>. It does not have to be the actual geographical time zone you are located at, because we will change the clock time manually in the next step, and the .csv schedule file simply provides a time without compensation for time zone.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>timedatectl<span class="w"> </span>set-timezone<span class="w"> </span>Etc/GMT+5
 </pre></div>
 </div>
 </li>
-<li><p>Disables automatic network time synchronization when connected to the internet:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">timedatectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">ntp</span> <span class="n">false</span>
+<li><p>Set the current date and time without applying a daylight saving adjustment. Enter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>date<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;YYYY-MM-DD HH:MM:SS&#39;</span>
+</pre></div>
+</div>
+<p>Replace the placeholder with the current date and standard-zone time, for example <code class="docutils literal notranslate"><span class="pre">2026-11-05</span> <span class="pre">17:00:00</span></code> if that is the correct time in your selected zone.</p>
+</li>
+<li><p>Copy the system time to the RTC (stored in UTC):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hwclock<span class="w"> </span>--systohc<span class="w"> </span>--utc
 </pre></div>
 </div>
 </li>
-<li><p>Set a fixed EST timezone without DST:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">timedatectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">timezone</span> <span class="n">Etc</span><span class="o">/</span><span class="n">GMT</span><span class="o">+</span><span class="mi">5</span>
-</pre></div>
-</div>
-</li>
-<li><p>Set the Raspberry Pi’s system clock to the current local standard time (without daylight saving time, even if DST is currently in effect) by entering the following command in the terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">date</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;YYYY-MM-DD hh:mm:ss&#39;</span>
+<li><p>Check RTC device:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">rtc</span><span class="o">/</span><span class="n">rtc0</span><span class="o">/</span><span class="n">name</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">--</span><span class="n">show</span> <span class="o">--</span><span class="n">rtc</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">rtc0</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Change the above to the user’s current time, for example ‘2022-01-01 01:01:00’.</p></li>
+<li><p>Hardware connection: <code class="docutils literal notranslate"><span class="pre">rtc-ds1307</span> <span class="pre">1-0068</span></code> confirms Linux detects the DS3231.</p></li>
+<li><p>RTC operation: A successfully displayed date and time confirms the RTC can be read.</p></li>
 </ul>
 </li>
-<li><p>Copy the time from the Raspberry Pi system to the Hardware RTC by entering:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">-</span><span class="n">w</span>
+<li><p><strong>Test timekeeping after a power outage.</strong> Disconnect the Pi from the network, then shut it down:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span>now
 </pre></div>
 </div>
-</li>
-<li><p>To check if RTC is working, enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">-</span><span class="n">rv</span>
-<span class="n">timedatectl</span>
-<span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">rtc</span><span class="o">/</span><span class="n">rtc0</span><span class="o">/</span><span class="n">name</span>
+<p>After shutdown completes, disconnect the power supply for a few minutes. Reconnect power and boot <strong>without internet access</strong>. Check:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>timedatectl
+sudo<span class="w"> </span>hwclock<span class="w"> </span>--show
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>The RTC time will be reported.</p></li>
-</ul>
-</li>
-<li><p>Test whether the RTC maintains time after a power outage:</p>
-<ul class="simple">
-<li><p>Disconnect the Raspberry Pi from the internet and shut it down.</p></li>
-<li><p>Once the Raspberry Pi has shut down, disconnect its power supply for at least 5 minutes.</p></li>
-<li><p>Reconnect the power supply and allow the Raspberry Pi to boot up, without connecting to the internet.</p></li>
-<li><p>Check the system time and RTC time by entering:</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">timedatectl</span>
-<span class="n">sudo</span> <span class="n">hwclock</span> <span class="o">-</span><span class="n">rvs</span>
-</pre></div>
-</div>
+<p>Confirm that the system clock has advanced properly.</p>
 </li>
 </ol>
 </section>
 <section id="desktop-folders">
 <span id="content-lightbox-lednumber2"></span><h2>Desktop folders<a class="headerlink" href="#desktop-folders" title="Permalink to this headline">#</a></h2>
 <ol>
-<li><p>Download the <em>control_moon</em> and <em>control_sun</em> folders (download in <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a>).</p>
+<li><p>Download the <em>control_moon</em> and <em>control_sun</em> folders from <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a>.</p>
 <ul class="simple">
-<li><p><em>control_moon</em> contains <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code></p></li>
-<li><p><em>control_sun</em> contains <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code></p></li>
+<li><p><em>control_moon</em> contains <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code>.</p></li>
+<li><p><em>control_sun</em> contains <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>.</p></li>
 </ul>
 </li>
-<li><p>Move the two folders to the Raspberry Pi Desktop.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In  <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code>, the line of LED_PIN = 18 specifies the communication with the moonlight LED strip through the <strong>GPIO 18</strong>. In <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>, the line of LED_PIN = 21 controls the sunlight/twilight LED strip through <strong>GPIO 21</strong> instead.</p>
-</div>
-</li>
-<li><p>In additional, download <code class="docutils literal notranslate"><span class="pre">clear_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_sun.py</span></code> put them directly on the Raspberry Pi Desktop.</p></li>
-</ol>
-</section>
-<section id="setting-up-systemd-service">
-<span id="content-systemd"></span><h2>Setting up systemd service<a class="headerlink" href="#setting-up-systemd-service" title="Permalink to this headline">#</a></h2>
-<p>Running <span style="font-variant:small-caps;">MoonShineP</span> using the Linux systemd service manager allows it to recover and resume light re-creation automatically, in the unlikely event of a crash.</p>
-<ol>
-<li><p>Create a new service file.</p>
-<p>In terminal, enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">moonshine_moon</span><span class="o">.</span><span class="n">service</span>
+<li><p>Move the folders to the Raspberry Pi Desktop so the script paths are:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/pi/Desktop/control_moon/moonshine_moon.py
+/home/pi/Desktop/control_sun/moonshine_sun.py
 </pre></div>
 </div>
-</li>
-<li><p>The file editor will open up a blank file, paste in the following lines:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span>
-<span class="n">Description</span><span class="o">=</span><span class="n">relaunch</span> <span class="n">moonshine_moon</span><span class="o">.</span><span class="n">py</span> <span class="n">when</span> <span class="n">crashed</span>
-
-<span class="p">[</span><span class="n">Service</span><span class="p">]</span>
-<span class="n">User</span><span class="o">=</span><span class="n">root</span>
-<span class="n">Group</span><span class="o">=</span><span class="n">root</span>
-<span class="n">Type</span><span class="o">=</span><span class="n">simple</span>
-<span class="n">ExecStart</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">control_moon</span><span class="o">/</span><span class="n">moonshine_moon</span><span class="o">.</span><span class="n">py</span>
-<span class="n">Restart</span><span class="o">=</span><span class="n">always</span>
-<span class="n">RestartSec</span><span class="o">=</span><span class="mi">3</span>
-
-<span class="p">[</span><span class="n">Install</span><span class="p">]</span>
-<span class="n">WantedBy</span><span class="o">=</span><span class="n">default</span><span class="o">.</span><span class="n">target</span>
+<p>Place each generated LED schedule CSV in the corresponding control folder, using the filename expected by its Python script. For example, <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> reads:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/pi/Desktop/control_moon/LED_schedule_moon.csv
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The line of “ExecStart=…” instructs system service to locate the <span style="font-variant:small-caps;">MoonShineP</span> python script in the correct directory. Restart=always and RestartSec=3 are configured to restart <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> within 3 seconds upon closing (i.e., the script crashing).</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code>, <code class="docutils literal notranslate"><span class="pre">LED_PIN</span> <span class="pre">=</span> <span class="pre">18</span></code> sends the moonlight LED data through <strong>GPIO 18</strong>. In <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>, <code class="docutils literal notranslate"><span class="pre">LED_PIN</span> <span class="pre">=</span> <span class="pre">21</span></code> is used for the sunlight/twilight LEDs through <strong>GPIO 21</strong>. The two scripts control separate LED outputs.</p>
 </div>
 </li>
-<li><p>Then save file with CTRL + O. CTRL + X to close the editor.</p>
-<p>When prompted for the file name, confirm that it is <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> and save.</p>
-</li>
-<li><p>Refresh the system service files. It may ask for the username and password (if so enter the username and password). Enter in terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
-</pre></div>
-</div>
-</li>
-<li><p>(Optional) If the user is recreating sunlight and twilight as well, repeat the above steps, from 1 to 4, to make another service for <em>control_sun/moonshine_sun.py</em></p>
-<ul>
-<li><p>For step 1, use a different file name:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">moonshine_sun</span><span class="o">.</span><span class="n">service</span>
-</pre></div>
-</div>
-</li>
-<li><p>For step 2, replace the line of <code class="docutils literal notranslate"><span class="pre">ExecStart=...</span></code>  with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExecStart</span><span class="o">=</span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">control_sun</span><span class="o">/</span><span class="n">moonshine_sun</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-</li>
-<li><p>For step 3, save the file with name <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Every time a <code class="docutils literal notranslate"><span class="pre">.service</span></code> file is edited, it requires a refresh (see Step 4).</p>
-</div>
-</li>
-</ul>
-</li>
+<li><p>Download <code class="docutils literal notranslate"><span class="pre">clear_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_sun.py</span></code> from <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a> and place them directly on the Raspberry Pi Desktop.</p></li>
 </ol>
 </section>
 <section id="setting-led-numbers-in-moonshine-moon-py-and-moonshine-sun-py">
 <span id="content-lightbox-lednumber3"></span><h2>Setting LED numbers in <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code><a class="headerlink" href="#setting-led-numbers-in-moonshine-moon-py-and-moonshine-sun-py" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>Recall that in <a class="reference internal" href="moonlight_LED_scheduler.html#content-moonshiner-moon"><span class="std std-ref">2. MoonShineR: Moonlight scheduler</span></a> and <a class="reference internal" href="sunlight_twilight_LED_scheduler.html#content-moonshiner-sun"><span class="std std-ref">3. MoonShineR: Sunlight/twilight scheduler</span></a>, the user was required to enter the specifications of the LED array (diode_per_strip and strip_count) into the R program. This was essential for generating the schedule <code class="docutils literal notranslate"><span class="pre">.csv</span></code>. It is important that LED_COUNT (below) in <span style="font-variant:small-caps;">MoonShineP</span> python script represents the product of diode_per_strip (from <span style="font-variant:small-caps;">MoonShineR</span>) and strip_count (from <span style="font-variant:small-caps;">MoonShineR</span>).</p></li>
-</ul>
+<p>In <a class="reference internal" href="moonlight_LED_scheduler.html#content-moonshiner-moon"><span class="std std-ref">2. MoonShineR: Moonlight scheduler</span></a> and <a class="reference internal" href="sunlight_twilight_LED_scheduler.html#content-moonshiner-sun"><span class="std std-ref">3. MoonShineR: Sunlight/twilight scheduler</span></a>, the user specifies the LED array using <code class="docutils literal notranslate"><span class="pre">diode_per_strip</span></code> and <code class="docutils literal notranslate"><span class="pre">strip_count</span></code> when generating the schedule CSV files. The corresponding <code class="docutils literal notranslate"><span class="pre">LED_COUNT</span></code> in the MoonShineP Python script must equal the product of these values. The Python script treats the LEDs as a one-dimensional sequence.</p>
 <ol>
-<li><p>To calculate the total number of LEDs, diode_per_strip should be multiplied by strip_count. E.g., 144 x 4 = 576.</p></li>
-<li><p>Edit the line of “LED_COUNT” in <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> with the respective total number of LEDs for each array (see <a class="reference internal" href="#led-count"><span class="std std-numref">Fig. 35</span></a>).</p>
+<li><p>Calculate the LED count:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LED_COUNT = diode_per_strip * strip_count
+</pre></div>
+</div>
+<p>For example, 144 LEDs per strip multiplied by four daisy-chained strips gives <strong>576 LEDs</strong>.</p>
+</li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code>, and set <code class="docutils literal notranslate"><span class="pre">LED_COUNT</span></code> to the actual total for each independent LED array (see <a class="reference internal" href="#led-count"><span class="std std-numref">Fig. 36</span></a>).</p>
 <figure class="align-default" id="led-count">
 <img alt="_images/led_count.png" src="_images/led_count.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Specify the line of “LED_COUNT” in <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> to 576 when using four daisy-chained 144 LED strips.</span><a class="headerlink" href="#led-count" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Set <code class="docutils literal notranslate"><span class="pre">LED_COUNT</span> <span class="pre">=</span> <span class="pre">576</span></code> in <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> when using four daisy-chained strips of 144 LEDs each.</span><a class="headerlink" href="#led-count" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </li>
-<li><p>Save the file.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When changing the number of LEDs number in an array, change the corresponding settings in <span style="font-variant:small-caps;">MoonShineR</span> schedulers and the <span style="font-variant:small-caps;">MoonShineP</span> python file. This will, of course, also require a recalibration of the illuminance.</p>
+<li><p>Check the LED channel order in <strong>both Python scripts</strong>. For the GRBW SK6812 strips used in this MoonShineP setup, the setting is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LED_STRIP</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">SK6812_STRIP_GRBW</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GRBW</span></code> is correct for the LED strip model we recommend. The <code class="docutils literal notranslate"><span class="pre">GRBW</span></code> order differs from the conventional <code class="docutils literal notranslate"><span class="pre">RGBW</span></code>, and properly determines how the red, green, blue, and white data are assigned to the physical LED channels.</p>
+</li>
+<li><p>Save the Python scripts. Changing LED count or strip hardware also requires matching changes to the MoonShineR schedule generation and a new illuminance calibration.</p></li>
+</ol>
+</section>
+<section id="setting-up-systemd-service">
+<span id="content-systemd"></span><h2>Setting up systemd service<a class="headerlink" href="#setting-up-systemd-service" title="Permalink to this headline">#</a></h2>
+<p>Using the Linux systemd service manager lets MoonShineP launch automatically at boot and restart if its continuously running Python script exits. Complete the folder and LED settings above first.</p>
+<ol>
+<li><p>Create the moonlight service file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/moonshine_moon.service
+</pre></div>
 </div>
 </li>
+<li><p>Paste the <strong>complete</strong> contents below. Pay particular attention to the <code class="docutils literal notranslate"><span class="pre">ExecStart</span></code> line: it must contain both the Python interpreter <strong>and</strong> the path to <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code>.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">MoonShineP moonlight scheduler</span>
+
+<span class="k">[Service]</span>
+<span class="na">User</span><span class="o">=</span><span class="s">root</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">root</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /home/pi/Desktop/control_moon/moonshine_moon.py</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">3</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restart=always</span></code> restarts the script after an unexpected failure <strong>or a normal exit</strong>. <code class="docutils literal notranslate"><span class="pre">RestartSec=3</span></code> pauses for three seconds before restarting. The service is run as root because the LED-control library requires privileged hardware access on this configuration.</p>
+</li>
+<li><p>Save with <code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code>, Enter, and close with <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>.</p></li>
+<li><p>If sunlight/twilight simulation is also used, create a second service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/moonshine_sun.service
+</pre></div>
+</div>
+<p>Paste:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">MoonShineP sunlight and twilight scheduler</span>
+
+<span class="k">[Service]</span>
+<span class="na">User</span><span class="o">=</span><span class="s">root</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">root</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /home/pi/Desktop/control_sun/moonshine_sun.py</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">3</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
+</div>
+</li>
+<li><p>Reload the systemd unit definitions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+</pre></div>
+</div>
+<p>Perform this reload Whenever a <code class="docutils literal notranslate"><span class="pre">.service</span></code> file is created or edited.</p>
+</li>
+<li><p>Enable and start the moonshine_moon.service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>moonshine_moon.service
+</pre></div>
+</div>
+<p>If configured, do the same for sunlight/twilight:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>moonshine_sun.service
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">enable</span></code> configures automatic startup at boot; <code class="docutils literal notranslate"><span class="pre">--now</span></code> also starts the service immediately. If you want to start a service just for the current session without enabling it at boot, use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">moonshine_moon.service</span></code> instead.</p>
+</li>
+<li><p>Check the service state:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>moonshine_moon.service<span class="w"> </span>--no-pager<span class="w"> </span>-l
+</pre></div>
+</div>
+<p>A continuously running scheduler should normally show <strong><code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code></strong>. Note also that a running scheduler does not guarantee the LEDs will be illuminated at that moment; the schedule may intentionally specify zero output.</p>
+</li>
+<li><p>If the service is <code class="docutils literal notranslate"><span class="pre">failed</span></code>, <code class="docutils literal notranslate"><span class="pre">inactive</span></code>, or repeatedly <code class="docutils literal notranslate"><span class="pre">activating</span> <span class="pre">(auto-restart)</span></code>, inspect its logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>moonshine_moon.service<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>--no-pager
+</pre></div>
+</div>
+<p>Typical checks are:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'rpi_ws281x'</span></code>:</strong> Recheck the Python library installation using the same <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code> interpreter as <code class="docutils literal notranslate"><span class="pre">ExecStart</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">can't</span> <span class="pre">open</span> <span class="pre">file</span> <span class="pre">...</span></code> or a clean exit immediately after launch:</strong> Check the full <code class="docutils literal notranslate"><span class="pre">ExecStart</span></code> line and the actual script path.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code> for the schedule or log:</strong> Check the control folder, CSV filename, and <code class="docutils literal notranslate"><span class="pre">/home/pi/</span></code> paths inside the Python script.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code> but no light:</strong> Check the present schedule values, <code class="docutils literal notranslate"><span class="pre">LED_COUNT</span></code>, <code class="docutils literal notranslate"><span class="pre">LED_PIN</span></code>, <code class="docutils literal notranslate"><span class="pre">LED_STRIP</span></code>, power, and connections.</p></li>
+</ul>
+</li>
+<li><p>For more information on starting and stopping <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code>, see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>.</p></li>
 </ol>
 </section>
 </section>

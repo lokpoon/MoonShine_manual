@@ -15,284 +15,246 @@ kernelspec:
 
 (content:lightbox:software)=
 # 6. <span style="font-variant:small-caps;">MoonShineP</span>: Software setup
+
+```{note}
+**Compatibility Note: As of November 2026.** MoonShineP was tested successfully on **Raspberry Pi 4** running **Python 3.11.2** (pre-installed version of Python with the OS), and relying on the system-installed `rpi-ws281x` Python package latest version 5.0.0. This chapter uses **Raspberry Pi OS (Legacy, 32-bit)** as the installation target; at the time of the test the Raspberry Pi OS Legacy release is **Debian 12 (Bookworm)**.
+
+**Hardware Note:** MoonShineP works best on **Raspberry Pi 4 Model B**, and should also work on the previous generation Pi 3 B. Raspberry Pi 5 uses a different GPIO architecture and as of November 2026, is not fully supported by the required `rpi-ws281x` Python package. The Raspberry Pi 4 Model B is expected to remain in production until at least 2034.
+```
+
 (content:lightbox:lednumber)=
 ## Setting up a new Raspberry Pi
 
-1. On a computer go to the Raspberry Pi website https://www.raspberrypi.com/software/ to download and install the Raspberry Pi Imager.
+1. On a computer, download and install [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
 
-2. In the Raspberry Pi Imager, install **Raspberry Pi OS (Legacy)** on the micro SD card.
+2. Insert the microSD card into the computer for loading the OS.
 
-3. Connect the monitor, keyboard, and mouse to the Raspberry Pi.
+3. Select **Raspberry Pi 4** (or Pi 3 if that is what you are using) as the model.
 
-4. Insert the micro SD card into the Raspberry Pi.
+4. Select **Raspberry Pi OS (Legacy, 32-bit)**. As of November 2026, this is based on **Debian 12 (Bookworm)**.
 
-5. Connect power to the Raspberry Pi to boot it up.
+   ```{figure} /images/os.jpg
+   :name: schematic
 
-6. Follow the instructions in the setup pages. Connect to the internet, and perform the prompted update on first launch. Note down the username and password that are utilized.
-
-7. Install Python 3.9.9.
-
-    ```{attention}
-    MoonShineP DOES NOT SUPPORT OTHER VERSIONS OF PYTHON
-    ```
-   
-   Reference: [How to Update Python on Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/update_python_webpage.pdf)
-   
-   Enter the following sequence of commands in the terminal:
-   
-    ```
-    wget https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz
-    ```
-    ```{attention}
-    If you recieve `The certificate of 'www\.python.org' is not trusted` after running the above line, resolve it by running:
-    `sudo apt update`
-    `sudo apt install --reinstall ca-certificates`
-    `sudo update-ca-certificates`
-    ```
-    ```
-    tar -zxvf Python-3.9.9.tgz
-    ```
-
-    ```
-    cd Python-3.9.9
-    ```
-
-    ```
-    ./configure --enable-optimizations
-    ```
-
-    ```
-    sudo make altinstall
-    ```
-
-    ```
-    cd /usr/bin
-    ```
-
-    ```
-    sudo rm python
-    ```
-
-    ```
-    sudo ln -s /usr/local/bin/python3.9 python
-    ```
-
-8. Check Python version is version (3.9.9) by entering:
-
-   
-   ```
-   python --version
+   Select Raspberry Pi OS (Legacy, 32-bit).
    ```
 
+5. It is very important to set the username to `pi` in the Imager's **OS Customisation** / **User** settings. The user then chooses their own password. The supplied MoonShineP Python scripts and systemd examples contain absolute paths beginning with `/home/pi/`. Using another username is possible, but then **all** `/home/pi/` paths in the Python scripts and service files must be updated.
+   ```{figure} /images/username.jpg
+   :name: moonshine_username_choice
+
+   Enter `pi` as the username to match the paths in the supplied scripts.
+   ```
+
+6. Skip or complete any other required settings, then write the OS image to the microSD card. If you skip customisation, create the username `pi` when prompted at first boot; the OS does not automatically use `pi` as its default username.
+
+7. When writing is complete, insert the microSD card into the Raspberry Pi. Connect power, monitor, mouse, and keyboard, then boot the Pi.
+
+8. **Check the installed OS and Python versions.** Python is already included in Raspberry Pi OS. At the time of November 2026, Raspberry Pi OS (Legacy, 32-bit) Python 3.11.2, which works properly with MoonShineP
+   ```bash
+   cat /etc/os-release
+   dpkg --print-architecture
+   /usr/bin/python3 --version
+   ```
+
+9. **Install the Python library that controls the SK6812 LEDs.** Connect the Pi to the internet for this step, then enter:
+
+   ```bash
+   sudo apt update
+   sudo apt install python3-pip python3-dev build-essential swig
+   sudo /usr/bin/python3 -m pip install --break-system-packages 'rpi-ws281x==5.0.0'
+   ```
+   Enter Y when prompted for the installation.
    ```{attention}
-   It must be Python 3.9.9
+   On Raspberry Pi OS Bookworm, `pip` normally prevents installations into the system Python environment. The `--break-system-packages` option deliberately overrides that protection. It is included here to allow a working **system-Python** setup on the dedicated MoonShineP Pi, and it carries a risk of conflicts with OS-managed Python packages. For general-purpose Raspberry Pis, a Python virtual environment is preferable; its interpreter path would also need to be used in the systemd service.
    ```
 
-9. Reboot the Raspberry Pi.
-10. Modify the Raspberry Pi to run the ws2811 library. 
-   
-   Reference: [Connect and Control WS2812 RGB LED Strips via Raspberry Pi](https://github.com/Crampton-Lab/MoonShine/blob/main/external_website_guide_backup/LED_strip_setup.pdf)
-   
-   - In terminal, enter the following sequence of commands:
-   
-        ```
-        sudo apt-get update
-        ```
-   
-        ```
-        sudo apt-get install gcc make build-essential python3-dev git scons swig
-        ```
-   - Confirm with Y
-   
-   - This following command line will open a file editor. To deactivate audio output, edit the `.conf` file by entering the following command:
-     
-     ```
-     sudo nano /etc/modprobe.d/snd-blacklist.conf
-     ```
-     
-   - A new terminal window will open. In this window add the following line text:
-     
-     ```
-     blacklist snd_bcm2835
-     ```
-     
-   - Then save file with CTRL + O.
-     
-   - And close the editor with CTRL + X.
-   
-   - We also need to edit another file. To do so, enter:
-     
-     ```
-     sudo nano /boot/firmware/config.txt
-     ```
-     
-   - When the editor is opened, comment out the following line with a # at the beginning:
-     
-     ```
-     dtparam=audio=on
-     ```
-     
-     i.e.,
-     
-     ```
-     #dtparam=audio=on
-     ```
-     
-     - Then save file with CTRL + O.
-     
-     - And close the editor with CTRL + X.
-   
-   - Reboot the Raspberry Pi by entering:
-     
-     ```
-     sudo reboot
-     ```
+   Check that Python can import the `rpi_ws281x` module, and record its actual version:
 
-11. Download rpi_ws281x library by entering:
-    ```
-    cd
-    ```
-    
-    ```
-    git clone https://github.com/jgarff/rpi_ws281x
-    ```
+   ```bash
+   sudo /usr/bin/python3 -c "import rpi_ws281x; print('Success')"
+   /usr/bin/python3 -m pip show rpi-ws281x
+   ```
 
-12. Next, modify the following lines to specify using the SK6812 protocol: 
-    
-    - Using the file explorer, open the `main.c` file found in */home/pi/rpi_ws281x/*
-    
-    - The line of "STRIP_TYPE  WS2811_STRIP_GBR" is turned on by default for LED ws2811 (should be Line 63), so turn it off by adding // at the beginning of the line.
-    
-    - Instead, turn on the line of "STRIP_TYPE  SK6812_STRIP_RGBW" (should be line 64) for SK6812 by deleting the // at the beginning of the line.
-    
+   The first command should print `Success`; the second should show `Version: 5.0.0` for the installation. `Version: 5.0.0` of rpi_ws281x has been tested to work, so it is best to keep the version specification instead of installing the latest update.
 
-    - On the line beginning with _'define HEIGHT'_ (should be line 67) edit the number to 1.
-    - The value of the line beginning with _'define WIDTH'_ is unimportant and should be left at its default (should be line 66). This is because it is expected that the user will use a different number of LED strips for the moonlight array (two LED strip should suffice) and sunlight/twilight array (likely need more than two LED strips). The different number of LEDs being used for the two arrays are specified in the python file `moonshine_moon.py` and `moonshine_sun.py`, detailed later.
-    
-    
-    - Save file.
-
-
-    ```{figure} /images/mainc.png
-    :name: mainc
-
-    The configuration of the `main.c` file.
-    ```
-    
-13. Next, compile the library for Python.
-      
-      In terminal, enter the following commands:
-      
-    ```
-    cd
-    ```
-
-    ```
-    cd rpi_ws281x/
-    ```
-
-    ```
-    sudo scons
-    ```
-   
-
-14. Now the Raspberry Pi should be ready to control the SK6812 LED strips.
+10. The Pi now has the required Python LED-control library installed. Continue with the RTC, folder, LED-count, and systemd configuration below before running MoonShineP.
 
 ## Setup real time clock (RTC) and time
 
-A real-time clock (RTC) module is recommended for MoonShineP, especially when operating without internet access. The RTC maintains time during power outages. We recommend disabling automatic internet time synchronization and using a fixed timezone without daylight saving time (DST) to ensure that the Raspberry Pi's clock remains consistent with the MoonShineR-generated schedules.
+A real-time clock (RTC) is recommended for MoonShineP when operating without internet access. On a **Raspberry Pi 4**, an external **DS3231** module with a working backup battery can maintain time during power outages. Disable automatic internet time synchronisation if the experimental schedule must not be adjusted by network time updates, or run the system offline (recommended).
 
-1. Install RTC module DS3231 as described in {ref}`content:hardware:assemble`.
+1. Connect the DS3231 RTC module as described in {ref}`content:hardware:assemble`.
 
-2. On the task bar of the main Linux window of Raspberry Pi, go to the Start menu (top left button) and enable the RTC module by selecting the following options: > Preferences > Raspberry Pi Configuration > Interfaces > I2C **Enable** > OK
+2. Enable I2C using the Raspberry Pi configuration utility:
 
-3. Open the Raspberry Pi configuration file, in terminal enter:
+   ```bash
+   sudo raspi-config
+   ```
+
+   Select **Interface Options > I2C > Enable**, then exit. (The menu numbering can differ among OS versions.)
+
+3. Open the boot configuration:
+
+   ```bash
+   sudo nano /boot/firmware/config.txt
+   ```
+
+   Add two new lines at the top:
+
+   ```ini
+   dtoverlay=i2c-rtc,ds3231
+   ```
+   ```ini
+   dtparam=audio=off
+   ```
+
+   If the line `dtparam=audio=on` alreay exists within the config.txt, delete it.
+
+   Save with `Ctrl+O`, Enter, and exit with `Ctrl+X`.
+
+3. Reboot:
+
+   ```bash
+   sudo reboot
+   ```
+
+4. **Verify that the RTC was detected.** Enter:
+
+   ```bash
+   ls /dev/rtc*
+   for f in /sys/class/rtc/rtc*/name; do echo "$f: $(cat "$f")"; done
+   ```
+
+   Identify the RTC device associated with the DS3231; on a Pi 4 with one RTC, it is typically `/dev/rtc0`. If more than one RTC exists, specify the correct one in `hwclock` commands with `--rtc /dev/rtcN`. If the module is not detected, check wiring, I2C enablement, and the device-tree overlay before setting time.
+
+5. Disable automatic network time synchronisation:
+
+   ```bash
+   sudo timedatectl set-ntp false
+   ```
+
+6. Set a fixed time zone without daylight saving time. For example, for **EST (UTC-05:00) all year**. It does not have to be the actual geographical time zone you are located at, because we will change the clock time manually in the next step, and the .csv schedule file simply provides a time without compensation for time zone.
+
+   ```bash
+   sudo timedatectl set-timezone Etc/GMT+5
+   ```
+
+7. Set the current date and time without applying a daylight saving adjustment. Enter:
+
+   ```bash
+   sudo date -s 'YYYY-MM-DD HH:MM:SS'
+   ```
+   
+   Replace the placeholder with the current date and standard-zone time, for example `2026-11-05 17:00:00` if that is the correct time in your selected zone.
+
+8. Copy the system time to the RTC (stored in UTC):
+
+   ```bash
+   sudo hwclock --systohc --utc
+   ```
+
+9. Check RTC device:
+
     ```
-    sudo nano /boot/firmware/config.txt
-    ```
-4. Add the following lines under `[all]`, and save the file by pressing `Ctrl+O`, Enter, then `Ctrl+X`:
-    ```
-    dtparam=rtc=off #This line is only required for Pi 5. Older models do not need this line.
-    dtoverlay=i2c-rtc,ds3231
-    ```
-    
-5. Reboot Pi:
-    ```
-    sudo reboot
+    cat /sys/class/rtc/rtc0/name && sudo hwclock --show --rtc /dev/rtc0
     ```
 
-6. Disables automatic network time synchronization when connected to the internet:
+    * Hardware connection: `rtc-ds1307 1-0068` confirms Linux detects the DS3231.
 
-    ```
-    sudo timedatectl set-ntp false
-    ```
-7. Set a fixed EST timezone without DST:
-    ```
-    sudo timedatectl set-timezone Etc/GMT+5
-    ```
-8.  Set the Raspberry Pi's system clock to the current local standard time (without daylight saving time, even if DST is currently in effect) by entering the following command in the terminal:
-    ```
-    sudo date -s 'YYYY-MM-DD hh:mm:ss'
-    ```
-    - Change the above to the user's current time, for example '2022-01-01 01:01:00'.
+    * RTC operation: A successfully displayed date and time confirms the RTC can be read.
 
-9. Copy the time from the Raspberry Pi system to the Hardware RTC by entering:
+
+10. **Test timekeeping after a power outage.** Disconnect the Pi from the network, then shut it down:
+
+    ```bash
+    sudo shutdown -h now
     ```
-    sudo hwclock -w
-    ```
-10. To check if RTC is working, enter:
-    ```
-    sudo hwclock -rv
+
+    After shutdown completes, disconnect the power supply for a few minutes. Reconnect power and boot **without internet access**. Check:
+
+    ```bash
     timedatectl
-    cat /sys/class/rtc/rtc0/name
-    ```
-    - The RTC time will be reported.
-
-11. Test whether the RTC maintains time after a power outage:
-
-    - Disconnect the Raspberry Pi from the internet and shut it down.
-    - Once the Raspberry Pi has shut down, disconnect its power supply for at least 5 minutes.
-    - Reconnect the power supply and allow the Raspberry Pi to boot up, without connecting to the internet.
-    - Check the system time and RTC time by entering:
-
-    ```
-    timedatectl
-    sudo hwclock -rvs
+    sudo hwclock --show
     ```
 
-(content:lightbox:lednumber2)=    
+    Confirm that the system clock has advanced properly.
+
+(content:lightbox:lednumber2)=
 ## Desktop folders
 
-1. Download the _control_moon_ and _control_sun_ folders (download in {ref}`content:lightbox:download`).
-    - _control_moon_ contains `moonshine_moon.py`
-    - _control_sun_ contains `moonshine_sun.py`
+1. Download the _control_moon_ and _control_sun_ folders from {ref}`content:lightbox:download`.
 
-2. Move the two folders to the Raspberry Pi Desktop.
+   - _control_moon_ contains `moonshine_moon.py`.
+   - _control_sun_ contains `moonshine_sun.py`.
 
-    ```{note}
-    In  `moonshine_moon.py`, the line of LED_PIN = 18 specifies the communication with the moonlight LED strip through the **GPIO 18**. In `moonshine_sun.py`, the line of LED_PIN = 21 controls the sunlight/twilight LED strip through **GPIO 21** instead.
-    ```
+2. Move the folders to the Raspberry Pi Desktop so the script paths are:
 
-1. In additional, download `clear_moon.py` and `clear_sun.py` put them directly on the Raspberry Pi Desktop.
-(content:systemd)=   
-## Setting up systemd service
-Running <span style="font-variant:small-caps;">MoonShineP</span> using the Linux systemd service manager allows it to recover and resume light re-creation automatically, in the unlikely event of a crash.
-
-1. Create a new service file.
-   
-   In terminal, enter:
-   
-    ```
-    sudo nano /etc/systemd/system/moonshine_moon.service
-    ```
-
-
-2. The file editor will open up a blank file, paste in the following lines:
-   
+   ```text
+   /home/pi/Desktop/control_moon/moonshine_moon.py
+   /home/pi/Desktop/control_sun/moonshine_sun.py
    ```
+
+   Place each generated LED schedule CSV in the corresponding control folder, using the filename expected by its Python script. For example, `moonshine_moon.py` reads:
+
+   ```text
+   /home/pi/Desktop/control_moon/LED_schedule_moon.csv
+   ```
+
+   ```{note}
+   In `moonshine_moon.py`, `LED_PIN = 18` sends the moonlight LED data through **GPIO 18**. In `moonshine_sun.py`, `LED_PIN = 21` is used for the sunlight/twilight LEDs through **GPIO 21**. The two scripts control separate LED outputs.
+   ```
+
+3. Download `clear_moon.py` and `clear_sun.py` from {ref}`content:lightbox:download` and place them directly on the Raspberry Pi Desktop.
+
+(content:lightbox:lednumber3)=
+## Setting LED numbers in `moonshine_moon.py` and `moonshine_sun.py`
+
+In {ref}`content:MoonShineR_moon` and {ref}`content:MoonShineR_sun`, the user specifies the LED array using `diode_per_strip` and `strip_count` when generating the schedule CSV files. The corresponding `LED_COUNT` in the MoonShineP Python script must equal the product of these values. The Python script treats the LEDs as a one-dimensional sequence.
+
+1. Calculate the LED count:
+
+   ```text
+   LED_COUNT = diode_per_strip * strip_count
+   ```
+
+   For example, 144 LEDs per strip multiplied by four daisy-chained strips gives **576 LEDs**.
+
+2. Open `moonshine_moon.py` and `moonshine_sun.py`, and set `LED_COUNT` to the actual total for each independent LED array (see {numref}`led_count`).
+
+   ```{figure} /images/led_count.png
+   :name: led_count
+
+   Set `LED_COUNT = 576` in `moonshine_sun.py` when using four daisy-chained strips of 144 LEDs each.
+   ```
+
+3. Check the LED channel order in **both Python scripts**. For the GRBW SK6812 strips used in this MoonShineP setup, the setting is:
+
+   ```python
+   LED_STRIP = ws.SK6812_STRIP_GRBW
+   ```
+
+   `GRBW` is correct for the LED strip model we recommend. The `GRBW` order differs from the conventional `RGBW`, and properly determines how the red, green, blue, and white data are assigned to the physical LED channels.
+
+4. Save the Python scripts. Changing LED count or strip hardware also requires matching changes to the MoonShineR schedule generation and a new illuminance calibration.
+
+(content:systemd)=
+## Setting up systemd service
+
+Using the Linux systemd service manager lets MoonShineP launch automatically at boot and restart if its continuously running Python script exits. Complete the folder and LED settings above first.
+
+1. Create the moonlight service file:
+
+   ```bash
+   sudo nano /etc/systemd/system/moonshine_moon.service
+   ```
+
+2. Paste the **complete** contents below. Pay particular attention to the `ExecStart` line: it must contain both the Python interpreter **and** the path to `moonshine_moon.py`.
+
+   ```ini
    [Unit]
-   Description=relaunch moonshine_moon.py when crashed
-   
+   Description=MoonShineP moonlight scheduler
+
    [Service]
    User=root
    Group=root
@@ -300,60 +262,82 @@ Running <span style="font-variant:small-caps;">MoonShineP</span> using the Linux
    ExecStart=/usr/bin/python3 /home/pi/Desktop/control_moon/moonshine_moon.py
    Restart=always
    RestartSec=3
-   
+
    [Install]
-   WantedBy=default.target
+   WantedBy=multi-user.target
    ```
-    ```{note}
-    The line of "ExecStart=..." instructs system service to locate the <span style="font-variant:small-caps;">MoonShineP</span> python script in the correct directory. Restart=always and RestartSec=3 are configured to restart `moonshine_moon.py` within 3 seconds upon closing (i.e., the script crashing).
-    ```
 
-3. Then save file with CTRL + O. CTRL + X to close the editor.
-   
-   When prompted for the file name, confirm that it is `moonshine_moon.service` and save.
+   `Restart=always` restarts the script after an unexpected failure **or a normal exit**. `RestartSec=3` pauses for three seconds before restarting. The service is run as root because the LED-control library requires privileged hardware access on this configuration.
 
-4. Refresh the system service files. It may ask for the username and password (if so enter the username and password). Enter in terminal:
-   
+3. Save with `Ctrl+O`, Enter, and close with `Ctrl+X`.
+
+4. If sunlight/twilight simulation is also used, create a second service:
+
+   ```bash
+   sudo nano /etc/systemd/system/moonshine_sun.service
    ```
+
+   Paste:
+
+   ```ini
+   [Unit]
+   Description=MoonShineP sunlight and twilight scheduler
+
+   [Service]
+   User=root
+   Group=root
+   Type=simple
+   ExecStart=/usr/bin/python3 /home/pi/Desktop/control_sun/moonshine_sun.py
+   Restart=always
+   RestartSec=3
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+
+5. Reload the systemd unit definitions:
+
+   ```bash
    sudo systemctl daemon-reload
    ```
 
-5. (Optional) If the user is recreating sunlight and twilight as well, repeat the above steps, from 1 to 4, to make another service for _control_sun/moonshine_sun.py_
-    
-    - For step 1, use a different file name:
-    
-        ```
-       sudo nano /etc/systemd/system/moonshine_sun.service
-        ```
-        
-    - For step 2, replace the line of `ExecStart=...`  with 
-        ```
-        ExecStart=sudo /usr/bin/python3 /home/pi/Desktop/control_sun/moonshine_sun.py
-        ```
+   Perform this reload Whenever a `.service` file is created or edited.
 
-    - For step 3, save the file with name `moonshine_sun.service`
-    
-       ```{note}
-       Every time a `.service` file is edited, it requires a refresh (see Step 4).
-       ```
-(content:lightbox:lednumber3)=    
-## Setting LED numbers in `moonshine_moon.py` and `moonshine_sun.py`
+   
+6. Enable and start the moonshine_moon.service:
 
-- Recall that in {ref}`content:MoonShineR_moon` and {ref}`content:MoonShineR_sun`, the user was required to enter the specifications of the LED array (diode_per_strip and strip_count) into the R program. This was essential for generating the schedule `.csv`. It is important that LED_COUNT (below) in <span style="font-variant:small-caps;">MoonShineP</span> python script represents the product of diode_per_strip (from <span style="font-variant:small-caps;">MoonShineR</span>) and strip_count (from <span style="font-variant:small-caps;">MoonShineR</span>).
+   ```bash
+   sudo systemctl enable --now moonshine_moon.service
+   ```
 
-1. To calculate the total number of LEDs, diode_per_strip should be multiplied by strip_count. E.g., 144 x 4 = 576.
-2. Edit the line of "LED_COUNT" in `moonshine_moon.py` and `moonshine_sun.py` with the respective total number of LEDs for each array (see {numref}`led_count`).
+   If configured, do the same for sunlight/twilight:
 
-    ```{figure} /images/led_count.png
-    :name: led_count
+   ```bash
+   sudo systemctl enable --now moonshine_sun.service
+   ```
 
-    Specify the line of "LED_COUNT" in `moonshine_sun.py` to 576 when using four daisy-chained 144 LED strips.
-    ```
+   `enable` configures automatic startup at boot; `--now` also starts the service immediately. If you want to start a service just for the current session without enabling it at boot, use `sudo systemctl start moonshine_moon.service` instead.
 
-3. Save the file.
+7. Check the service state:
 
+   ```bash
+   sudo systemctl status moonshine_moon.service --no-pager -l
+   ```
 
-    
-    ```{note}
-    When changing the number of LEDs number in an array, change the corresponding settings in <span style="font-variant:small-caps;">MoonShineR</span> schedulers and the <span style="font-variant:small-caps;">MoonShineP</span> python file. This will, of course, also require a recalibration of the illuminance.
-    ```
+   A continuously running scheduler should normally show **`active (running)`**. Note also that a running scheduler does not guarantee the LEDs will be illuminated at that moment; the schedule may intentionally specify zero output.
+
+9. If the service is `failed`, `inactive`, or repeatedly `activating (auto-restart)`, inspect its logs:
+
+   ```bash
+   sudo journalctl -u moonshine_moon.service -n 50 --no-pager
+   ```
+
+   Typical checks are:
+
+   - **`ModuleNotFoundError: No module named 'rpi_ws281x'`:** Recheck the Python library installation using the same `/usr/bin/python3` interpreter as `ExecStart`.
+   - **`can't open file ...` or a clean exit immediately after launch:** Check the full `ExecStart` line and the actual script path.
+   - **`No such file or directory` for the schedule or log:** Check the control folder, CSV filename, and `/home/pi/` paths inside the Python script.
+   - **`active (running)` but no light:** Check the present schedule values, `LED_COUNT`, `LED_PIN`, `LED_STRIP`, power, and connections.
+
+10. For more information on starting and stopping `moonshine_moon.service`, see {ref}`content:launch`.

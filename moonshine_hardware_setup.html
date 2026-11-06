@@ -179,15 +179,6 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="moonshine_launch_procedure.html">
-   8.
-   <span style="font-variant:small-caps;">
-    MoonShineP
-   </span>
-   : Launch procedure
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="download.html">
    Download files
   </a>
@@ -673,7 +664,7 @@ title="Print to PDF"
 <li><p>Follow the Raspberry Pi kit assembly instruction.</p></li>
 <li><p>On the bare wire end of the 3-pin cable female connector that comes with the LED strip, put on the female crimp connector. See <a class="reference external" href="https://www.youtube.com/watch?v=JsoqBS1-k7M">this guide</a> for installing crimp pins with needle nose pliers. The user can decide whether to use three single-socket crimp connectors for each wire, or one 5-socket crimp connector for all three wires.</p>
 <ul class="simple">
-<li><p>Follow <a class="reference internal" href="#schematic"><span class="std std-numref">Fig. 30</span></a> (solid color circles) for the pin locations of the first array of LED strips.</p></li>
+<li><p>Follow <a class="reference internal" href="moonshine_software_setup.html#schematic"><span class="std std-numref">Fig. 34</span></a> (solid color circles) for the pin locations of the first array of LED strips.</p></li>
 </ul>
 </li>
 <li><p>Plug in the fully assembled female crimp connector (after Step 2 is complete) into the Raspberry Pi GPIO pin so that the wires are connected to the correct locations.</p>
@@ -687,12 +678,12 @@ title="Print to PDF"
 <li><p>Screw in the LED voltage-adding wires (red-positive and white-negative) to the power female connector that comes with the DC power supply. Pay attention to the polarity.</p></li>
 <li><p>Plug in DC power supply.</p></li>
 <li><p>Connect additional LED strips to this array from the other end (away from the Raspberry Pi) of the first LED strip. Add an additional DC power supply to each subsequent LED strips. Use 3-pin extension cable when needed to extend the distance between connections.</p></li>
-<li><p>Install the real time clock (RTC) module as shown in <a class="reference internal" href="#schematic"><span class="std std-numref">Fig. 30</span></a>. Make sure that it goes into the correct location, occupying five of the GPIO pins.</p></li>
-<li><p>(Optional) To add a second array of LED strips for re-creating sunlight/twilight, while also running moonlight re-creation, follow <a class="reference internal" href="#schematic"><span class="std std-numref">Fig. 30</span></a> (open color circles) for the pin locations of the second LED array. Repeat Steps 2-8.</p>
+<li><p>Install the real time clock (RTC) module as shown in <a class="reference internal" href="moonshine_software_setup.html#schematic"><span class="std std-numref">Fig. 34</span></a>. Make sure that it goes into the correct location, occupying five of the GPIO pins.</p></li>
+<li><p>(Optional) To add a second array of LED strips for re-creating sunlight/twilight, while also running moonlight re-creation, follow <a class="reference internal" href="moonshine_software_setup.html#schematic"><span class="std std-numref">Fig. 34</span></a> (open color circles) for the pin locations of the second LED array. Repeat Steps 2-8.</p>
 <figure class="align-default" id="rtc-pic">
 <a class="reference internal image-reference" href="_images/RTC_pic.png"><img alt="_images/RTC_pic.png" src="_images/RTC_pic.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 32 </span><span class="caption-text">The Raspberry Pi with the RTC and both LED arrays (moonlight and sunlight/twilight) connected. This matches the schemetic of <a class="reference internal" href="#schematic"><span class="std std-numref">Fig. 30</span></a>.</span><a class="headerlink" href="#rtc-pic" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">The Raspberry Pi with the RTC and both LED arrays (moonlight and sunlight/twilight) connected. This matches the schemetic of <a class="reference internal" href="moonshine_software_setup.html#schematic"><span class="std std-numref">Fig. 34</span></a>.</span><a class="headerlink" href="#rtc-pic" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </li>

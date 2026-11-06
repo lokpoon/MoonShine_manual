@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. MoonShineP: Launch procedure" href="moonshine_launch_procedure.html" />
+    <link rel="next" title="Download files" href="download.html" />
     <link rel="prev" title="6. MoonShineP: Software setup" href="moonshine_software_setup.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -176,15 +176,6 @@ const thebe_selector_output = ".output, .cell_output"
     MoonShineP
    </span>
    : Calibration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="moonshine_launch_procedure.html">
-   8.
-   <span style="font-variant:small-caps;">
-    MoonShineP
-   </span>
-   : Launch procedure
   </a>
  </li>
  <li class="toctree-l1">
@@ -560,7 +551,7 @@ title="Print to PDF"
 <p>To make an informed decision on what combination of ND filter sheets is needed for the user’s specific room and setup, perform the following steps:</p>
 <ol class="simple">
 <li><p>Position the lightboxes at their permanent locations. Ideally the lightboxes should be put on shelves at opposite sides of the room, so that the light is directed to the ceiling and diffusely illuminates the entire room. The room should preferably have a white or light-shaded ceiling so as to minimize the change in the light spectrum.</p></li>
-<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
+<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure_OLD.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
 <li><p>Using a light meter, measure the illuminance at the position of the animal enclosure. Let us say that it measures 100 lx.</p></li>
 </ol>
 <ul class="simple">
@@ -572,7 +563,7 @@ title="Print to PDF"
 <section id="calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter">
 <span id="content-lightbox-radiometer"></span><h3>Calibrating <span style="font-variant:small-caps;">MoonShineP</span> with a light meter<a class="headerlink" href="#calibrating-span-style-font-variant-small-caps-moonshinep-span-with-a-light-meter" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
+<li><p>Using the previously created calibration <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>, launch <span style="font-variant:small-caps;">MoonShineP</span> (see <a class="reference internal" href="moonshine_launch_procedure_OLD.html#content-launch"><span class="std std-ref">8. MoonShineP: Launch procedure</span></a>).</p></li>
 <li><p>Next, the calibration method depends on whether a low light sensitive meter (able to accurately measure 0.01 lx) is available.</p>
 <ul>
 <li><p>If available,</p>
@@ -596,7 +587,7 @@ title="Print to PDF"
 <figure class="align-default" id="days">
 <img alt="_images/10days.png" src="_images/10days.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 36 </span><span class="caption-text"><span style="font-variant:small-caps;">MoonShineP</span>’s performance in re-creating moonlight illuminance level after calibration. MoonShineR prediction = black line. Light meter measurements of the re-created illuminance = red line. Note that the lines are very close. This test was performed in a lab setting, running a simulated LED schedule for 9 nights around a full moon.</span><a class="headerlink" href="#days" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text"><span style="font-variant:small-caps;">MoonShineP</span>’s performance in re-creating moonlight illuminance level after calibration. MoonShineR prediction = black line. Light meter measurements of the re-created illuminance = red line. Note that the lines are very close. This test was performed in a lab setting, running a simulated LED schedule for 9 nights around a full moon.</span><a class="headerlink" href="#days" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -625,9 +616,9 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>Two LED strips may not be enough to re-create the desired illuminance, but more LED strips can be daisy chained together, as follows:</p>
 <ul>
-<li><p>Connect additional LED strips by following <a class="reference internal" href="moonshine_hardware_setup.html#schematic"><span class="std std-numref">Fig. 30</span></a></p></li>
+<li><p>Connect additional LED strips by following <a class="reference internal" href="moonshine_software_setup.html#schematic"><span class="std std-numref">Fig. 34</span></a></p></li>
 <li><p>Add LED strips <strong>in multiple of two</strong>.</p></li>
-<li><p>See <a class="reference internal" href="moonshine_software_setup.html#content-lightbox-lednumber3"><span class="std std-ref">Setting LED numbers in moonshine_moon.py and moonshine_sun.py</span></a> for how to update the number of LEDs in the software.</p></li>
+<li><p>See <a class="reference internal" href="moonshine_software_setup_OLD.html#content-lightbox-lednumber3"><span class="std std-ref">Setting LED numbers in moonshine_moon.py and moonshine_sun.py</span></a> for how to update the number of LEDs in the software.</p></li>
 </ul>
 </li>
 </ul>
@@ -669,10 +660,10 @@ title="Print to PDF"
             <p class="prev-next-title">6. <span style="font-variant:small-caps;">MoonShineP</span>: Software setup</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="moonshine_launch_procedure.html" title="next page">
+    <a class='right-next' id="next-link" href="download.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">8. <span style="font-variant:small-caps;">MoonShineP</span>: Launch procedure</p>
+        <p class="prev-next-title">Download files</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

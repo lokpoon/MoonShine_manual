@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>8. MoonShineP: Launch procedure &#8212; MoonShine Instruction Manual</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">MoonShine Instruction Manual</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="overview.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lux_calculator.html">
+   1.
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   : R package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moonlight_LED_scheduler.html">
+   2.
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   : Moonlight scheduler
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="sunlight_twilight_LED_scheduler.html">
+   3.
+   <span style="font-variant:small-caps;">
+    MoonShineR
+   </span>
+   : Sunlight/twilight scheduler
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="edit_LED_schedule_csv.html">
+   4. Edit LED schedule
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .csv
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moonshine_hardware_setup.html">
+   5.
+   <span style="font-variant:small-caps;">
+    MoonShineP
+   </span>
+   : Hardware setup
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moonshine_software_setup.html">
+   6.
+   <span style="font-variant:small-caps;">
+    MoonShineP
+   </span>
+   : Software setup
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moonshine_calibration.html">
+   7.
+   <span style="font-variant:small-caps;">
+    MoonShineP
+   </span>
+   : Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="download.html">
+   Download files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="reference.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/Crampton-Lab/MoonShine/master?urlpath=tree/docs/moonshine_launch_procedure_OLD.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/Crampton-Lab/MoonShine"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/Crampton-Lab/MoonShine/issues/new?title=Issue%20on%20page%20%2Fmoonshine_launch_procedure_OLD.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/moonshine_launch_procedure_OLD.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/moonshine_launch_procedure_OLD.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-a-working-led-schedule-moon-csv">
+     1. Generate a working
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       LED_schedule_moon.csv
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-the-location-of-files">
+     2. Check the location of files
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-sure-that-the-led-strips-are-not-frozen">
+     3. Make sure that the LED strips are not frozen
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#to-run-moonshine-moon-service">
+   To run
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     moonshine_moon.service
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#to-end-moonshine-moon-service">
+   To end
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     moonshine_moon.service
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>8. <span style="font-variant:small-caps;">MoonShineP</span>: Launch procedure</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-a-working-led-schedule-moon-csv">
+     1. Generate a working
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       LED_schedule_moon.csv
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-the-location-of-files">
+     2. Check the location of files
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-sure-that-the-led-strips-are-not-frozen">
+     3. Make sure that the LED strips are not frozen
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#to-run-moonshine-moon-service">
+   To run
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     moonshine_moon.service
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#to-end-moonshine-moon-service">
+   To end
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     moonshine_moon.service
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="span-style-font-variant-small-caps-moonshinep-span-launch-procedure">
+<span id="content-launch"></span><h1>8. <span style="font-variant:small-caps;">MoonShineP</span>: Launch procedure<a class="headerlink" href="#span-style-font-variant-small-caps-moonshinep-span-launch-procedure" title="Permalink to this headline">#</a></h1>
+<p>This chapter describe how to launch <span style="font-variant:small-caps;">MoonShineP</span>, using the example of re-creating moonlight only (i.e., using the moon version of the files, which have filenames labeled “moon” before the file suffix). The moon version files include: <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> located within <em>Desktop/control_moon</em> (on the Raspberry Pi Linux Desktop). And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code>. The user should apply the same procedures for launching the sunlight/twilight system, using the sun version of the files, namely <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> and <code class="docutils literal notranslate"><span class="pre">LED_schedule_sun.csv</span></code> located within <em>Desktop/control_sun</em>. And the systemd service <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code>.</p>
+<p>The user should follow the two setup chapters before performing a launch. Here we continue from the software setup section <a class="reference internal" href="moonshine_software_setup_OLD.html#content-systemd"><span class="std std-ref">Setting up systemd service</span></a>, in which we described how to link a <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> to the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> located in <em>Desktop/control_moon</em></p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
+<p>Things to check before a launch. Some of the information here are reminders of important points already mentioned in the other chapters. If <span style="font-variant:small-caps;">MoonShine</span> does not launch properly, check the followings for potential mistakes.</p>
+<section id="generate-a-working-led-schedule-moon-csv">
+<h3>1. Generate a working <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code><a class="headerlink" href="#generate-a-working-led-schedule-moon-csv" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Generate an <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> using the methods detailed in <a class="reference internal" href="moonlight_LED_scheduler.html#content-moonshiner-moon"><span class="std std-ref">2. MoonShineR: Moonlight scheduler</span></a> and <a class="reference internal" href="edit_LED_schedule_csv.html#content-edit"><span class="std std-ref">4. Edit LED schedule .csv</span></a>, with the  desired parameters. Make sure that the time zone was set correctly, and is a time zone without daylight saving time (DST).</p></li>
+<li><p>Move the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> into the Raspberry Pi’s <em>Desktop/control_moon</em></p></li>
+<li><p>For the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> to run, the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> must contain a row matching the time at launch. In other words, there cannot be a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> where the first row is a time in the future.</p></li>
+<li><p>For example, let’s say that the user launches <span style="font-variant:small-caps;">MoonShineP</span> at noon but does not want the LED arrays to start a light re-creation until midnight. In this case, the user should generate a <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> by specifying noon as the start time in <span style="font-variant:small-caps;">MoonShineP: Moonlight scheduler</span>. Then open the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> in Excel and edit the rows of LED crude and fine value before midnight to zero. Having launched this edited <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code> at noon, the LEDs will start illuminating at midnight. Between noon (the launch time), the launch time, and midnight, the simulation will run, but because the LEDs rows have been edited to zero, there will be no illumination.</p></li>
+<li><p>For the same reason, the user should never delete entire rows with excel in the middle of the <code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code>. This will cause errors. If dark periods are required, the user must instead replace the LED illumination value with zeros.</p></li>
+<li><p>Check that the ‘<em>datetime</em>’column in the schedule is in the correct format. See <a class="reference internal" href="edit_LED_schedule_csv.html#content-datetime"><span class="std std-ref">Problem with Excel datetime</span></a></p></li>
+</ul>
+</section>
+<section id="check-the-location-of-files">
+<h3>2. Check the location of files<a class="headerlink" href="#check-the-location-of-files" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Within <em>Desktop/control_moon</em>, check that the following files are present (if not add them).</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_schedule_moon.csv</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="make-sure-that-the-led-strips-are-not-frozen">
+<h3>3. Make sure that the LED strips are not frozen<a class="headerlink" href="#make-sure-that-the-led-strips-are-not-frozen" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The LED strips should never freeze during operation. However, they may become unresponsive after the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> is stopped, or due to other accidents such as a loose connection in the GPIO cable.</p></li>
+<li><p>To reset the LED array, unplug both the power and the GPIO cable, and reconnect them. It is advisable to turn off the Raspberry Pi before disconnecting the power and GPIO connections.</p></li>
+</ul>
+</section>
+</section>
+<section id="to-run-moonshine-moon-service">
+<h2>To run <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code><a class="headerlink" href="#to-run-moonshine-moon-service" title="Permalink to this headline">#</a></h2>
+<ol>
+<li><p>To configure <span style="font-variant:small-caps;">MoonShineP</span> to start automatically when the Raspberry Pi boots, enter the following command in the terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">moonshine_moon</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><span style="font-variant:small-caps;">MoonShineP</span> should be up and running once the system clock hits 00 second.</p></li>
+</ul>
+</li>
+</ol>
+<p>To start <span style="font-variant:small-caps;">MoonShineP</span> immediately, without rebooting the Raspberry Pi, enter:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo systemctl enable moonshine_moon.service
+</pre></div>
+</div>
+<ol>
+<li><p>To check whether the service is running, enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">moonshine_moon</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>To trobule shoot moonshine_moon.service run failure, run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">moonshine_moon.service</span> <span class="pre">-n</span> <span class="pre">30</span> <span class="pre">--no-pager</span></code></p>
+</div>
+</li>
+<li><p>Check CPU usage, by entering:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">htop</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<ul>
+<li><p>On entering this text, the user will see a new window containing a summary of CPU usage. The user should now check that every minute there is CPU activity associated with <span style="font-variant:small-caps;">MoonShineP</span> operation (corresponding to when MoonShineP changes illumination values in the LEDs).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting 8 sec before the start of every minute, one of the CPU cores (two if running two services, both moon and sunlight recreation) of the CPU cores will increase usage to 100% (<code class="xref std std-numref docutils literal notranslate"><span class="pre">htop</span></code>). <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> will be listed as the top task in the list. The LEDs will be be updated at the start of the minute, and CPU usage will return to normal.</p>
+</div>
+<figure class="align-default" id="htop">
+<img alt="_images/htop.png" src="_images/htop.png" />
+<figcaption>
+<p><span class="caption-text">Two CPUs at 100% usage just before the start of every minute, as the <code class="docutils literal notranslate"><span class="pre">moonshine_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.py</span></code> are searching for a matching datetime to the current time.</span><a class="headerlink" href="#htop" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Raspberry Pi does not have a sleep mode or other energy saving modes.</p>
+</div>
+</li>
+</ul>
+<ol class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">log.txt</span></code> file will be created in <em>Desktop/control_moon</em>. This log allows the user to check the LED intensity values of the first 3 LEDs in the array. This file will be replaced with a new one upon restarting <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code>.</p></li>
+</ol>
+</section>
+<section id="to-end-moonshine-moon-service">
+<h2>To end <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code><a class="headerlink" href="#to-end-moonshine-moon-service" title="Permalink to this headline">#</a></h2>
+<ol>
+<li><p>Stopping the service file will stop <span style="font-variant:small-caps;">MoonShineP</span>’s Python code from continuing to refresh the LEDs (the LEDs will remain at the last intensity). This is the only way to stop <span style="font-variant:small-caps;">MoonShineP</span>.</p>
+<ul class="simple">
+<li><p>To stop the service file, enter the following into the terminal:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">stop</span> <span class="n">moonshine_moon</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</li>
+<li><p>To completely turn off the LED strips (which remain at their last intensity after Step 1 is completed), the user should run the following two Python scripts, <code class="docutils literal notranslate"><span class="pre">clear_moon.py</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_sun.py</span></code> (download in <a class="reference internal" href="download.html#content-lightbox-download"><span class="std std-ref">Download files</span></a>).</p>
+<ul class="simple">
+<li><p>Place both these files on the Raspberry Pi desktop.</p></li>
+<li><p>Then, to turn off the LEDs in a moonlight simulation, enter:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">python3</span> <span class="n">Desktop</span><span class="o">/</span><span class="n">clear_moon</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>To turn off the LEDs in a sunlight simulation, enter.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">python3</span> <span class="n">Desktop</span><span class="o">/</span><span class="n">clear_sun</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Whenever the Raspberry Pi is rebooted, <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> and <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code> launchs automatically. Even when the user stops the systemd service, it will start itself upon a reboot.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The same procedures can be used for the sunlight/twilight service by replacing <code class="docutils literal notranslate"><span class="pre">moonshine_moon.service</span></code> with <code class="docutils literal notranslate"><span class="pre">moonshine_sun.service</span></code>, as mentioned in at the page top.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By C. Lok Poon, Ian T. Jenks & W.G.R., Crampton. University of Central Florida.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
